@@ -1,0 +1,77 @@
+Domain DominioGestionListadoPropiedades {
+    domainVisionStatement = "Mostrar la información sobre bienes raices comerciales asi como un listado de ventas y rentas"
+
+    Subdomain SubdominioDatosPropiedades {
+        type = GENERIC_SUBDOMAIN
+        domainVisionStatement = "Mostrar informacion de una propiedad para que los usuarios puedan revisarla y compararla"
+        Entity Propiedad {
+            Float tamano
+            String tipoConstruccion
+            Double numeroPisos
+            Boolean disponibilidad
+        }
+    }
+
+    Subdomain SubdominioListadoDisponibilidadBienes {
+        type = GENERIC_SUBDOMAIN
+        domainVisionStatement = "Mostrar listado de las propiedades y su disponibilidad y costos de mercado para que los usuarios la puedan accesar"
+    }
+
+    Subdomain SubdominioInformacionInquilinos {
+        type = CORE_DOMAIN
+        domainVisionStatement = "Mantener información de los inquilinos y sus contratos de renta para ofrecerles rentas nuevas"
+        Entity Inquilino {
+            String nombre
+            String apellido
+            Double idRenta
+            Double tiempoRestanteRenta
+        }
+    }
+
+    Subdomain SubdominioInvestigacionPropiedades {
+        type = CORE_DOMAIN
+        domainVisionStatement = "Realizar investigaciones de campo y usar tecnicas de machine learning para tener informacion completa de las propiedades"
+    }
+
+}
+
+Domain DominioGestionInformacionTransacciones {
+  domainVisionStatement = "Mantener información sobre el estado de mercado y transacciones para realizar comparacione y estimaciones"
+
+  Subdomain SubdominioInformacionCompanias {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Mantener información de las  compañias de arrendamiento e inquilinas para registrar los movimientos"
+    Entity Compania{
+        String nombre
+        String tipoEmpresa
+        String direccion
+    }
+  }
+
+  Subdomain SubdomainInformacionContratos {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Usar bases de datos y encuestas para obtener la informació de los contratos de venta y renta para las propiedades registradas"
+  }
+
+  Subdomain SubdomainInformacionCatastral {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Usar bases de datos, encuestas e investigación de campo para determinar los lotes y direcciones que corresponden a cada propiedad"
+  }
+
+  Subdomain SubdomainAnalisisMercado {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Uso de tecnicas de machine learning y analisis de datos historicos para estimar el estado del mercado"
+  }
+  
+  Subdomain SubdomainComparativoVentas {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Uso de las transacciones historicas para permitir analisis de propiedades y mercado"
+  }
+
+}
+
+UserStory CompararPropiedades {
+  As a "Usuario"
+    I want to "comparar" a "dos o mas propiedades" with its "precio de venta", "historial de ventas"
+  so that "pueda identificar cual es la mejor opción para rentar"
+}
