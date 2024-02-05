@@ -1,28 +1,40 @@
 ContextMap PDAContextMap {
 	type = SYSTEM_LANDSCAPE
-	state = AS_IS
+	state = TO_BE
 
-	contains AutitoriaContext
+	contains AuditoriaContext
 	contains RecoleccionPlanosContext
 	contains CompaniasContext
 	contains ListadosContext
 	contains InvestigacionCampoYGeoEspacialContext
 	contains IngenieriaDatosContext
+	contains InternacionalizacionContext
+	contains ConformidadDatosContext
+
 
 	CompaniasContext [P]<->[P] InvestigacionCampoYGeoEspacialContext
 	CompaniasContext [P]<->[P] RecoleccionPlanosContext
 	InvestigacionCampoYGeoEspacialContext [SK]<->[SK] RecoleccionPlanosContext
 	CompaniasContext [U, OHS, PL]->[D, ACL] ListadosContext
-	CompaniasContext [S]->[C] AutitoriaContext
-	RecoleccionPlanosContext [S, PL]->[C] AutitoriaContext
-	InvestigacionCampoYGeoEspacialContext [S]->[C] AutitoriaContext
-	IngenieriaDatosContext [P]<->[P] AutitoriaContext
+	CompaniasContext [S]->[C] AuditoriaContext
+	RecoleccionPlanosContext [S, PL]->[C] AuditoriaContext
+	InvestigacionCampoYGeoEspacialContext [S]->[C] AuditoriaContext
+	IngenieriaDatosContext [P]<->[P] AuditoriaContext
 	IngenieriaDatosContext [D, ACL]<-[U, OHS, PL] InvestigacionCampoYGeoEspacialContext
 	IngenieriaDatosContext [P]<->[P] CompaniasContext
 	ListadosContext [D, ACL]<-[U, OHS, PL] RecoleccionPlanosContext
 	ListadosContext [D, ACL]<-[U, OHS, PL] InvestigacionCampoYGeoEspacialContext
 	ListadosContext [D, ACL]<-[U, OHS, PL] IngenieriaDatosContext
-	ListadosContext [S]->[C] AutitoriaContext 
+	ListadosContext [S]->[C] AuditoriaContext 
+	InternacionalizacionContext [P]<->[P] ConformidadDatosContext
+	InternacionalizacionContext [P]<->[P] AuditoriaContext
+	InternacionalizacionContext [C]<-[S] CompaniasContext
+	InternacionalizacionContext [C]<-[S] RecoleccionPlanosContext
+	InternacionalizacionContext [C]<-[S] InvestigacionCampoYGeoEspacialContext
+	IngenieriaDatosContext [P]<->[P] InternacionalizacionContext
+	InternacionalizacionContext [C]<-[S] ListadosContext
+	ConformidadDatosContext [C]<-[S] ListadosContext
+	ConformidadDatosContext [P]<->[P] AuditoriaContext
 }
 
 BoundedContext AutitoriaContext implements AuditoriaDomain {
@@ -55,6 +67,16 @@ BoundedContext IngenieriaDatosContext implements IngenieriaDatosDomain {
 	domainVisionStatement = "Contexto para las funcionalidades de machine learngin para obtencion de datos"
 }
 
+BoundedContext InternacionalizacionContext implements InternacionalizacionDomain {
+	type = FEATURE
+	domainVisionStatement = "Contexto para las funcionalidades de internacionalizacion como agregar un nuevo pais"
+}
+
+BoundedContext ConformidadDatosContext implements ConformidadDatosDomain {
+	type = FEATURE
+	domainVisionStatement = "Contexto para las funcionalidades de mantenimiento de datos y distribucion geopolitica"
+}
+
 Domain PDADomain {
 
 	Subdomain AuditoriaDomain {
@@ -85,5 +107,15 @@ Domain PDADomain {
 	Subdomain IngenieriaDatosDomain {
 		type CORE_DOMAIN
 		domainVisionStatement = "Subdominio que maneja todo lo relativo con las capacidades de machine learning"
+	}
+
+	Subdomain InternacionalizacionDomain {
+		type CORE_DOMAIN
+		domainVisionStatement = "Subdominio que maneja todo lo relativo con la internacionalizacion de los listados y obtencion de datos"
+	}
+
+	Subdomain ConformidadDatosDomain {
+		type CORE_DOMAIN
+		domainVisionStatement = "Subdominio que maneja la distribucion de las propiedades en regiones geopoliticas"
 	}
 }
