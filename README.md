@@ -1,6 +1,7 @@
 # Diseño y Construcción de Soluciones No Monoliticas
 
-## Integrantes
+## Grupo: Vikingos
+### Integrantes:
 | Nombre                        | Correo                                                            |
 | ----------------------------- | ----------------------------------------------------------------- |
 |Leonardo Wilches               |l.wilchesm@uniandes.edu.co                                         |
