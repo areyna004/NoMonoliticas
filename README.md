@@ -15,7 +15,7 @@
 
 - Context Map - AS-IS:
 
-![image](https://github.com/areyna004/NoMonoliticas/assets/7703536/2ed9e0b1-6528-48dc-8579-83e8ba51b850)
+![image](https://github.com/areyna004/NoMonoliticas/assets/7703536/13099023-ca02-4c5b-bc18-40e823eb9235)
 
 
 - Context Map - To-BE:
