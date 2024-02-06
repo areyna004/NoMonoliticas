@@ -19,6 +19,6 @@
 
 
 - Context Map - To-BE:
-
-![image](https://github.com/areyna004/NoMonoliticas/assets/7703536/823dd1d4-c062-4480-92a0-ed18fcd38612)
+  
+![image](https://github.com/areyna004/NoMonoliticas/assets/7703536/6d6df85c-c3ff-45f8-8c3c-a898237d194f)
 
