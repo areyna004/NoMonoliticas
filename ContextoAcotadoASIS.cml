@@ -2,7 +2,7 @@ ContextMap PDAContextMap {
 	type = SYSTEM_LANDSCAPE
 	state = AS_IS
 
-	contains AutitoriaContext
+	contains AuditoriaContext
 	contains RecoleccionPlanosContext
 	contains CompaniasContext
 	contains ListadosContext
@@ -13,19 +13,19 @@ ContextMap PDAContextMap {
 	CompaniasContext [P]<->[P] RecoleccionPlanosContext
 	InvestigacionCampoYGeoEspacialContext [SK]<->[SK] RecoleccionPlanosContext
 	CompaniasContext [U, OHS, PL]->[D, ACL] ListadosContext
-	CompaniasContext [S]->[C] AutitoriaContext
-	RecoleccionPlanosContext [S, PL]->[C] AutitoriaContext
-	InvestigacionCampoYGeoEspacialContext [S]->[C] AutitoriaContext
-	IngenieriaDatosContext [P]<->[P] AutitoriaContext
+	CompaniasContext [S]->[C] AuditoriaContext
+	RecoleccionPlanosContext [S, PL]->[C] AuditoriaContext
+	InvestigacionCampoYGeoEspacialContext [S]->[C] AuditoriaContext
+	IngenieriaDatosContext [P]<->[P] AuditoriaContext
 	IngenieriaDatosContext [D, ACL]<-[U, OHS, PL] InvestigacionCampoYGeoEspacialContext
 	IngenieriaDatosContext [P]<->[P] CompaniasContext
 	ListadosContext [D, ACL]<-[U, OHS, PL] RecoleccionPlanosContext
 	ListadosContext [D, ACL]<-[U, OHS, PL] InvestigacionCampoYGeoEspacialContext
 	ListadosContext [D, ACL]<-[U, OHS, PL] IngenieriaDatosContext
-	ListadosContext [S]->[C] AutitoriaContext 
+	ListadosContext [S]->[C] AuditoriaContext 
 }
 
-BoundedContext AutitoriaContext implements AuditoriaDomain {
+BoundedContext AuditoriaContext implements AuditoriaDomain {
 	type = FEATURE
 	domainVisionStatement = "Contexto para las funcionalidades manejadas por el equipo de auditoria que se encarga de monitorear la calidad y confiabilidad de los datos de las propiedades"
 }

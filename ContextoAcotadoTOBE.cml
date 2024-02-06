@@ -37,7 +37,7 @@ ContextMap PDAContextMap {
 	ConformidadDatosContext [P]<->[P] AuditoriaContext
 }
 
-BoundedContext AutitoriaContext implements AuditoriaDomain {
+BoundedContext AuditoriaContext implements AuditoriaDomain {
 	type = FEATURE
 	domainVisionStatement = "Contexto para las funcionalidades manejadas por el equipo de auditoria que se encarga de monitorear la calidad y confiabilidad de los datos de las propiedades"
 }
