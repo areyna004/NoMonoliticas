@@ -3,3 +3,5 @@ To run code:
     venv\Scripts\activate
  - Install requirements 
     pip install -r requirements.txt
+ - Run on debug mode
+    flask --app src/pda/api --debug run
