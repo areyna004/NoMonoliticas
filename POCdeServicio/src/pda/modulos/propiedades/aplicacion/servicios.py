@@ -1,5 +1,5 @@
 from pda.seedwork.aplicacion.servicios import Servicio
-from pda.modulos.propiedades.dominio.entidades import Reserva
+from pda.modulos.propiedades.dominio.entidades import Propiedad
 from pda.modulos.propiedades.dominio.fabricas import FabricaPropiedades
 from pda.modulos.propiedades.infraestructura.fabricas import FabricaRepositorio
 from pda.modulos.propiedades.infraestructura.repositorios import RepositorioPropiedades
@@ -10,24 +10,22 @@ from .dto import PropiedadDTO
 class ServicioPropiedad(Servicio):
     def __init__(self):
         self._fabrica_repositorio: FabricaRepositorio = FabricaRepositorio()
-        self._fabrica_vuelos: FabricaPropiedades = FabricaPropiedades()
+        self._fabrica_propiedades: FabricaPropiedades = FabricaPropiedades()
 
     @property
     def fabrica_repositorio(self):
         return self._fabrica_repositorio
     
     @property
-    def fabrica_vuelos(self):
-        return self._fabrica_vuelos
+    def fabrica_propiedades(self):
+        return self._fabrica_propiedades
 
-    def crear_reserva(self, reserva_dto: ReservaDTO) -> ReservaDTO:
-        reserva: Reserva = self.fabrica_vuelos.crear_objeto(reserva_dto, MapeadorReserva())
+    def crear_propiedad(self, propiedad_dto: PropiedadDTO) -> PropiedadDTO:
+        propiedad: Propiedad = self.fabrica_propiedades.crear_objeto(propiedad_dto, MapeadorPropiedad())
+        repositorio = self.fabrica_repositorio.crear_objeto(RepositorioPropiedades.__class__)
+        repositorio.agregar(propiedad)
+        return self.fabrica_propiedades.crear_objeto(propiedad, MapeadorPropiedad())
 
-        repositorio = self.fabrica_repositorio.crear_objeto(RepositorioReservas.__class__)
-        repositorio.agregar(reserva)
-
-        return self.fabrica_vuelos.crear_objeto(reserva, MapeadorReserva())
-
-    def obtener_reserva_por_id(self, id) -> ReservaDTO:
-        repositorio = self.fabrica_repositorio.crear_objeto(RepositorioReservas.__class__)
+    def obtener_propiedad_por_id(self, id) -> PropiedadDTO:
+        repositorio = self.fabrica_repositorio.crear_objeto(RepositorioPropiedades.__class__)
         return repositorio.obtener_por_id(id).__dict__
