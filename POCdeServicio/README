@@ -1,0 +1,5 @@
+To run code:
+ - Activate venv
+    venv\Scripts\activate
+ - Install requirements 
+    pip install -r requirements.txt
