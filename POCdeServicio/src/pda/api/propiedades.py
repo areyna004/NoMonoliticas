@@ -13,14 +13,12 @@ bp = api.crear_blueprint('propiedades', '/propiedades')
 def agregar_propiedad():
     try:
         propiedad_dict = request.json
-
-        map_reserva = MapeadorPropiedadDTOJson()
-        reserva_dto = map_reserva.externo_a_dto(propiedad_dict)
-
+        map_propiedad = MapeadorPropiedadDTOJson()
+        propiedad_dto = map_propiedad.externo_a_dto(propiedad_dict)
         sr = ServicioPropiedad()
-        dto_final = sr.crear_reserva(reserva_dto)
-
-        return map_reserva.dto_a_externo(dto_final)
+        dto_final = sr.crear_propiedad(propiedad_dto)
+        return map_propiedad.dto_a_externo(dto_final)
+    
     except ExcepcionDominio as e:
         return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')
     
@@ -29,7 +27,7 @@ def agregar_propiedad():
 def dar_reserva(id=None):
     if id:
         sr = ServicioPropiedad()
-        
         return sr.obtener_propiedad_por_id(id)
+    
     else:
         return [{'message': 'GET!'}]

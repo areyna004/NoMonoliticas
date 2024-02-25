@@ -2,10 +2,10 @@ from pda.seedwork.aplicacion.servicios import Servicio
 from pda.modulos.propiedades.dominio.entidades import Reserva
 from pda.modulos.propiedades.dominio.fabricas import FabricaPropiedades
 from pda.modulos.propiedades.infraestructura.fabricas import FabricaRepositorio
-from pda.modulos.propiedades.infraestructura.repositorios import RepositorioReservas
-from .mapeadores import MapeadorReserva
+from pda.modulos.propiedades.infraestructura.repositorios import RepositorioPropiedades
+from .mapeadores import MapeadorPropiedad
 
-from .dto import ReservaDTO
+from .dto import PropiedadDTO
 
 class ServicioPropiedad(Servicio):
     def __init__(self):
