@@ -9,7 +9,7 @@ from pda.modulos.propiedades.aplicacion.servicios import ServicioPropiedad
 
 bp = api.crear_blueprint('propiedades', '/propiedades')
 
-@bp.route('/propiedad', methods=('POST'))
+@bp.route('/propiedad', methods=['POST'])
 def agregar_propiedad():
     try:
         propiedad_dict = request.json
@@ -22,12 +22,13 @@ def agregar_propiedad():
     except ExcepcionDominio as e:
         return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')
     
-@bp.route('/reserva', methods=('GET',))
-@bp.route('/reserva/<id>', methods=('GET',))
-def dar_reserva(id=None):
+@bp.route('/propiedad', methods=['GET'])
+@bp.route('/propiedad/<id>', methods=['GET'])
+def dar_propiedad(id=None):
     if id:
         sr = ServicioPropiedad()
         return sr.obtener_propiedad_por_id(id)
     
     else:
-        return [{'message': 'GET!'}]
+        sr = ServicioPropiedad()
+        return sr.obtener_todas_las_propiedades()

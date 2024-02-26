@@ -1,78 +1,59 @@
 from pda.seedwork.dominio.repositorios import Mapeador
-from pda.modulos.propiedades.dominio.objetos_valor import NombreAero, Odo, Leg, Segmento, Itinerario, CodigoIATA
-from pda.modulos.propiedades.dominio.entidades import Proveedor, Aeropuerto, Reserva
+from pda.modulos.propiedades.dominio.objetos_valor import Direccion
+from pda.modulos.propiedades.dominio.entidades import Propiedad
 from .dto import Propiedad as PropiedadDTO
+from .dto import Direccion as DireccionDTO
 
-class MapeadorReserva(Mapeador):
+class MapeadorPropiedad(Mapeador):
     _FORMATO_FECHA = '%Y-%m-%dT%H:%M:%SZ'
 
-    def _procesar_propietario_dto(self, propietarios_dto: list) -> list[Itinerario]:
-        itin_dict = dict()
+    def _procesar_direccion_dto(self, direcciones_dto: list) -> list[Direccion]:
+        direccion_dict = dict()
         
-        for itin in itinerarios_dto:
-            destino = Aeropuerto(codigo=itin.destino_codigo, nombre=None)
-            origen = Aeropuerto(codigo=itin.origen_codigo, nombre=None)
-            fecha_salida = itin.fecha_salida
-            fecha_llegada = itin.fecha_llegada
+        for dir in direcciones_dto:
+            calle = dir.calle
+            localidad = dir.localidad
+            ciudad = dir.ciudad
+            pais = dir.pais
+            direccion_dict.setdefault(str(dir.dir_orden), Direccion(calle, localidad, ciudad, pais))
+        
+        direcciones = list()
+        
+        for dir_dict in direccion_dict.items():
+            direcciones.append(dir_dict)
 
-            itin_dict.setdefault(str(itin.odo_orden),{}).setdefault(str(itin.segmento_orden), {}).setdefault(str(itin.leg_orden), Leg(fecha_salida, fecha_llegada, origen, destino))
+        return direcciones
 
-        odos = list()
-        for k, odos_dict in itin_dict.items():
-            segmentos = list()
-            for k, seg_dict in odos_dict.items():
-                legs = list()
-                for k, leg in seg_dict.items():
-                    legs.append(leg)
-                segmentos.append(Segmento(legs))
-            odos.append(Odo(segmentos))
-
-        return [Itinerario(odos)]
-
-    def _procesar_itinerario(self, itinerario: any) -> list[ItinerarioDTO]:
-        itinerarios_dto = list()
-
-        for i, odo in enumerate(itinerario.odos):
-            for j, seg in enumerate(odo.segmentos):
-                for k, leg in enumerate(seg.legs):
-                    itinerario_dto = ItinerarioDTO()
-                    itinerario_dto.destino_codigo = leg.destino.codigo
-                    itinerario_dto.origen_codigo = leg.origen.codigo
-                    itinerario_dto.fecha_salida = leg.fecha_salida
-                    itinerario_dto.fecha_llegada = leg.fecha_llegada
-                    itinerario_dto.leg_orden = k
-                    itinerario_dto.segmento_orden = j
-                    itinerario_dto.odo_orden = i
-
-                    itinerarios_dto.append(itinerario_dto)
-
-        return itinerarios_dto
+    def _procesar_direccion(self, direcciones: any) -> list[DireccionDTO]:
+        direcciones_dto = list()
+        for k, direccion in enumerate(direcciones):
+            direccion_dto = DireccionDTO()
+            direccion_dto.calle = direccion.calle
+            direccion_dto.localidad = direccion.localidad
+            direccion_dto.ciudad = direccion.ciudad
+            direccion_dto.pais = direccion.pais
+            direccion_dto.dir_orden = k
+            direcciones_dto.append(direccion_dto)
+        return direcciones_dto
 
     def obtener_tipo(self) -> type:
-        return Reserva.__class__
+        return Propiedad.__class__
 
-    def entidad_a_dto(self, entidad: Reserva) -> ReservaDTO:
-        
-        reserva_dto = ReservaDTO()
-        reserva_dto.fecha_creacion = entidad.fecha_creacion
-        reserva_dto.fecha_actualizacion = entidad.fecha_actualizacion
-        reserva_dto.id = str(entidad.id)
+    def entidad_a_dto(self, entidad: Propiedad) -> PropiedadDTO:
+        propiedad_dto = PropiedadDTO()
+        propiedad_dto.fecha_creacion = entidad.fecha_creacion
+        propiedad_dto.fecha_actualizacion = entidad.fecha_actualizacion
+        propiedad_dto.id = str(entidad.id)
+        propiedad_dto.nombre = entidad.nombre
+        propiedad_dto.descripcion = entidad.descripcion
+        propiedad_dto.tamanio = entidad.tamanio
+        propiedad_dto.tipo = entidad.tipo
+        propiedad_dto.direcciones = self._procesar_direccion(entidad.direcciones)
+        return propiedad_dto
 
-        itinerarios_dto = list()
-        
-        for itinerario in entidad.itinerarios:
-            itinerarios_dto.extend(self._procesar_itinerario(itinerario))
-
-        reserva_dto.itinerarios = itinerarios_dto
-
-        return reserva_dto
-
-    def dto_a_entidad(self, dto: ReservaDTO) -> Reserva:
-        reserva = Reserva(dto.id, dto.fecha_creacion, dto.fecha_actualizacion)
-        reserva.itinerarios = list()
-
-        itinerarios_dto: list[ItinerarioDTO] = dto.itinerarios
-
-        reserva.itinerarios.extend(self._procesar_itinerario_dto(itinerarios_dto))
-        
-        return reserva
+    def dto_a_entidad(self, dto: PropiedadDTO) -> Propiedad:
+        propiedad = Propiedad(dto.id, dto.fecha_creacion, dto.fecha_actualizacion, dto.nombre, dto.descripcion, dto.tamanio, dto.tipo)
+        propiedad.direcciones = list()
+        direcciones_dto: list[DireccionDTO] = dto.direcciones
+        propiedad.direcciones.append(self._procesar_direccion_dto(direcciones_dto))
+        return propiedad

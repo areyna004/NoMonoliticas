@@ -34,14 +34,14 @@ def create_app(configuracion=None):
     app.register_blueprint(transacciones.bp)
     app.register_blueprint(usuario.bp)
 
-    @app.route("/spec")
+    @app.route("/spec", methods=["GET"])
     def spec():
         swag = swagger(app)
         swag['info']['version'] = "1.0"
         swag['info']['title'] = "Propiedades de los Andes"
         return jsonify(swag)
 
-    @app.route("/health")
+    @app.route("/health", methods=["GET"])
     def health():
         return {"status": "up"}
 
