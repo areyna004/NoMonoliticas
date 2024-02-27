@@ -36,7 +36,7 @@ def agregar_propiedad():
         comando = CrearPropiedad(propiedad_dto.fecha_creacion, propiedad_dto.fecha_actualizacion, propiedad_dto.id, propiedad_dto.nombre, propiedad_dto.descripcion, propiedad_dto.tamanio, propiedad_dto.tipo, propiedad_dto.direcciones)
         despachador = Despachador()
 
-        despachador.publicar_comando(comando, 'eventos-propiedad')
+        despachador.publicar_comando(comando, 'comandos-propiedad')
         
         return Response('{}', status=202, mimetype='application/json')
     except ExcepcionDominio as e:
