@@ -1,6 +1,7 @@
 attrs==22.1.0
 click==8.1.3
 coverage==6.5.0
+flask[async]==2.2.2
 Flask==2.2.2
 Flask-SQLAlchemy==3.0.2
 flask-swagger==0.2.14
@@ -11,7 +12,10 @@ Jinja2==3.1.2
 MarkupSafe==2.1.1
 packaging==21.3
 pluggy==1.0.0
+pulsar-client
+pulsar-client[avro]
 py==1.11.0
+PyDispatcher==2.0.6
 pyparsing==3.0.9
 pytest==7.1.3
 PyYAML==6.0.1

@@ -14,7 +14,8 @@ class _FabricaPropiedad(Fabrica):
             
         else:
             propiedad: Propiedad = mapeador.dto_a_entidad(obj)
-            self.validar_regla(TamanioMayorAMetro(propiedad))
+            print(propiedad)
+            #self.validar_regla(TamanioMayorAMetro(propiedad))
             return propiedad
 
 @dataclass

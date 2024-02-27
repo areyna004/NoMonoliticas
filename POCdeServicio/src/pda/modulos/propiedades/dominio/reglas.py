@@ -9,7 +9,7 @@ class TamanioMayorAMetro(ReglaNegocio):
         self.propiedad = propiedad
 
     def es_valido(self) -> bool:
-        #print(self.propiedad)
+        
         if int(str(self.propiedad.tamanio)) >= 1:
             return True
         else:

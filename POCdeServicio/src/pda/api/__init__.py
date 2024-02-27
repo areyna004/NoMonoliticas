@@ -1,10 +1,34 @@
 import os
-from flask import Flask, render_template, request, url_for, redirect, jsonify
+from flask import Flask, render_template, request, url_for, redirect, jsonify, session
 from flask_swagger import swagger
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-def create_app(configuracion=None):
+def registrar_handlers():
+    import pda.modulos.propiedades.aplicacion
+    import pda.modulos.propietarios.aplicacion
+
+def importar_modelos_alchemy():
+    import pda.modulos.propiedades.infraestructura.dto
+    import pda.modulos.propietarios.infraestructura.dto
+
+
+def comenzar_consumidor():
+    import threading
+    import pda.modulos.propietarios.infraestructura.consumidores as propietarios
+    import pda.modulos.propiedades.infraestructura.consumidores as propiedades
+
+    # Suscripción a eventos
+    threading.Thread(target=propiedades.suscribirse_a_eventos).start()
+    threading.Thread(target=propietarios.suscribirse_a_eventos).start()
+    
+
+    # Suscripción a comandos
+    threading.Thread(target=propiedades.suscribirse_a_comandos).start()
+    threading.Thread(target=propietarios.suscribirse_a_comandos).start()
+
+
+def create_app(configuracion={}):
     # Init la aplicacion de Flask
     app = Flask(__name__, instance_relative_config=True)
     
@@ -12,6 +36,10 @@ def create_app(configuracion=None):
     app.config['SQLALCHEMY_DATABASE_URI'] =\
             'sqlite:///' + os.path.join(basedir, 'database.db')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+    app.secret_key = '9d58f98f-3ae8-4149-a09f-3a8c2012e32c'
+    app.config['SESSION_TYPE'] = 'filesystem'
+    app.config['TESTING'] = configuracion.get('TESTING')
 
     # Inicializa la DB
     from pda.config.db import init_db

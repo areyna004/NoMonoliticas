@@ -52,6 +52,7 @@ class MapeadorPropiedad(RepMap):
         descripcion = entidad.descripcion
         tamanio = entidad.tamanio
         tipo = entidad.tipo
+        eventos = entidad.eventos
         direcciones = entidad.direcciones
         return PropiedadDTO(fecha_creacion, fecha_actualizacion, _id, nombre, descripcion, tamanio, tipo, direcciones)
 
@@ -61,7 +62,6 @@ class MapeadorPropiedad(RepMap):
         propiedad.descripcion = dto.descripcion
         propiedad.tamanio = dto.tamanio
         propiedad.tipo = dto.tipo
-
         direcciones_dto: list[DireccionDTO] = dto.direcciones
         propiedad.direcciones = self._procesar_direcciones(direcciones_dto)
         return propiedad
