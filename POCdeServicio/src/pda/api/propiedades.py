@@ -34,7 +34,6 @@ def agregar_propiedad():
         propiedad_dto = map_propiedad.externo_a_dto(propiedad_dict)
 
         comando = CrearPropiedad(propiedad_dto.fecha_creacion, propiedad_dto.fecha_actualizacion, propiedad_dto.id, propiedad_dto.nombre, propiedad_dto.descripcion, propiedad_dto.tamanio, propiedad_dto.tipo, propiedad_dto.direcciones)
-        
         despachador = Despachador()
 
         despachador.publicar_comando(comando, 'eventos-propiedad')

@@ -31,7 +31,14 @@ class Despachador:
 
     def publicar_comando(self, comando, topico):
         payload = ComandoCrearPropiedadPayload(
-            id_usuario=str(comando.id_usuario)
+            fecha_creacion  = comando.fecha_creacion,
+            fecha_actualizacion = comando.fecha_actualizacion,
+            id = comando.id,
+            nombre = comando.nombre,
+            descripcion = comando.descripcion,
+            tamanio = comando.tamanio,
+            tipo = comando.tipo,
+            direcciones = comando.direcciones
         )
         comando_integracion = ComandoCrearPropiedad(data=payload)
         self._publicar_mensaje(comando_integracion, topico, AvroSchema(ComandoCrearPropiedad))

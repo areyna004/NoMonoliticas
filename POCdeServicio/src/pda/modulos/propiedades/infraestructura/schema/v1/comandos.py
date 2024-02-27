@@ -3,7 +3,14 @@ from dataclasses import dataclass, field
 from pda.seedwork.infraestructura.schema.v1.comandos import (ComandoIntegracion)
 
 class ComandoCrearPropiedadPayload(ComandoIntegracion):
-    id_usuario = String()
+    fecha_creacion  = String()
+    fecha_actualizacion = String()
+    id = String()
+    nombre = String()
+    descripcion = String()
+    tamanio = String()
+    tipo = String()
+    direcciones = list()
     
 
 class ComandoCrearPropiedad(ComandoIntegracion):
