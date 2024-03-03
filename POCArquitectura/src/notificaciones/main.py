@@ -1,43 +1,25 @@
-import pulsar, _pulsar
-from pulsar.schema import *
-import uuid
-import time
-import os
+from pulsar import Client, AuthenticationToken
+from avro.schema import Parse
+from avro.io import DatumReader, DatumWriter, BinaryEncoder, BinaryDecoder
+import io
+# Parse the Avro schema for the command
+comando_schema = Parse(open("src/notificaciones/schema/v1/propiedad.avsc").read())
 
-def time_millis():
-    return int(time.time() * 1000)
+def consumir_comandos():
+    client = Client('pulsar://127.0.0.1:6650')
+    consumer = client.subscribe('persistent://public/default/comandos-propiedades', 'subscripcion-1')
+    while True:
+        msg = consumer.receive()
+        try:
+            bytes_io = io.BytesIO(msg.data())
+            decoder = BinaryDecoder(bytes_io)
+            reader = DatumReader(comando_schema)
+            comando_data = reader.read(decoder)
+            print("Comando recibido:", comando_data)
+            consumer.acknowledge(msg)
+        except Exception as e:
+            print("Error al procesar el comando:", e)
+            consumer.negative_acknowledge(msg)
 
-class EventoIntegracion(Record):
-    id = String(default=str(uuid.uuid4()))
-    time = Long()
-    ingestion = Long(default=time_millis())
-    specversion = String()
-    type = String()
-    datacontenttype = String()
-    service_name = String()
-
-class ReservaCreadaPayload(Record):
-    id_reserva = String()
-    id_cliente = String()
-    estado = String()
-    fecha_creacion = Long()
-
-class EventoReservaCreada(EventoIntegracion):
-    data = ReservaCreadaPayload()
-
-HOSTNAME = os.getenv('PULSAR_ADDRESS', default="localhost")
-
-client = pulsar.Client(f'pulsar://{HOSTNAME}:6650')
-consumer = client.subscribe('eventos-reserva', consumer_type=_pulsar.ConsumerType.Shared, subscription_name='sub-notificacion-eventos-reservas', schema=AvroSchema(EventoReservaCreada))
-
-while True:
-    msg = consumer.receive()
-    print('=========================================')
-    print("Mensaje Recibido: '%s'" % msg.value().data)
-    print('=========================================')
-
-    print('==== Envía correo a usuario ====')
-
-    consumer.acknowledge(msg)
-
-client.close()
+if __name__ == "__main__":
+    consumir_comandos()
