@@ -1,7 +1,26 @@
-To run code:
- - Activate venv
+# Diseño y Construcción de Soluciones No Monoliticas
+
+## Grupo: Vikingos
+### Integrantes:
+| Nombre                        | Correo                                                            |
+| ----------------------------- | ----------------------------------------------------------------- |
+|Leonardo Wilches               |l.wilchesm@uniandes.edu.co                                         |
+|Arturo Reyna                   |a.reyna@uniandes.edu.co                                            |
+|Mario Gomez                    |mr.gomezc1@uniandes.edu.co                                         |
+|Rafael Rodriguez               |rh.rodriguezr1@uniandes.edu.co                                     |
+
+## Entrega 4
+
+## Ejecutar aplicación:
+
+ - Activar ambiente virtual:
+
     venv\Scripts\activate
- - Install requirements 
+
+ - Instalar dependencia: 
+
     pip install -r requirements.txt
- - Run on debug mode
+
+ - Ejecutar Servidor Http en modo debug:
+
     flask --app src/pda/api --debug run
