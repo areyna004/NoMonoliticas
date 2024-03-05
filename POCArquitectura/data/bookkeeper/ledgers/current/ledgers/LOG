@@ -391,3 +391,23 @@ Cumulative stall: 00:00:0.000 H:M:S, 0.0 percent
 Interval writes: 46 writes, 30 keys, 46 commit groups, 1.0 writes per commit group, ingest: 0.00 MB, 0.00 MB/s
 Interval WAL: 46 writes, 16 syncs, 2.88 writes per sync, written: 0.00 GB, 0.00 MB/s
 Interval stall: 00:00:0.000 H:M:S, 0.0 percent
+2024/03/05-04:11:07.802398 140603648099904 [/db_impl/db_impl.cc:1110] ------- DUMPING STATS -------
+2024/03/05-04:11:07.804788 140603648099904 [/db_impl/db_impl.cc:1111] 
+** DB Stats **
+Uptime(secs): 3600.7 total, 600.0 interval
+Cumulative writes: 184 writes, 92 keys, 184 commit groups, 1.0 writes per commit group, ingest: 0.00 GB, 0.00 MB/s
+Cumulative WAL: 184 writes, 92 syncs, 2.00 writes per sync, written: 0.00 GB, 0.00 MB/s
+Cumulative stall: 00:00:0.000 H:M:S, 0.0 percent
+Interval writes: 44 writes, 30 keys, 44 commit groups, 1.0 writes per commit group, ingest: 0.00 MB, 0.00 MB/s
+Interval WAL: 44 writes, 14 syncs, 3.14 writes per sync, written: 0.00 GB, 0.00 MB/s
+Interval stall: 00:00:0.000 H:M:S, 0.0 percent
+2024/03/05-04:21:07.836374 140603648099904 [/db_impl/db_impl.cc:1110] ------- DUMPING STATS -------
+2024/03/05-04:21:07.848851 140603648099904 [/db_impl/db_impl.cc:1111] 
+** DB Stats **
+Uptime(secs): 4200.7 total, 600.0 interval
+Cumulative writes: 224 writes, 122 keys, 224 commit groups, 1.0 writes per commit group, ingest: 0.00 GB, 0.00 MB/s
+Cumulative WAL: 224 writes, 102 syncs, 2.20 writes per sync, written: 0.00 GB, 0.00 MB/s
+Cumulative stall: 00:00:0.000 H:M:S, 0.0 percent
+Interval writes: 40 writes, 30 keys, 40 commit groups, 1.0 writes per commit group, ingest: 0.00 MB, 0.00 MB/s
+Interval WAL: 40 writes, 10 syncs, 4.00 writes per sync, written: 0.00 GB, 0.00 MB/s
+Interval stall: 00:00:0.000 H:M:S, 0.0 percent
