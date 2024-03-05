@@ -9,18 +9,4 @@
 |Mario Gomez                    |mr.gomezc1@uniandes.edu.co                                         |
 |Rafael Rodriguez               |rh.rodriguezr1@uniandes.edu.co                                     |
 
-## Entrega 4
-
-## Ejecutar aplicación:
-
- - Activar ambiente virtual:
-
-    venv\Scripts\activate
-
- - Instalar dependencia: 
-
-    pip install -r requirements.txt
-
- - Ejecutar Servidor Http en modo debug:
-
-    flask --app src/pda/api --debug run
+### Proyecto del Curso
