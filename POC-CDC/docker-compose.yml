@@ -1,8 +1,15 @@
+version: '3'
+networks:
+  pulsar:
+    driver: bridge
 services:
+  # Start zookeeper
   zookeeper:
     image: apachepulsar/pulsar:latest
     container_name: zookeeper
     restart: on-failure
+    networks:
+      - pulsar
     volumes:
       - ./data/zookeeper:/pulsar/data/zookeeper
     environment:
@@ -22,6 +29,8 @@ services:
     container_name: pulsar-init
     hostname: pulsar-init
     image: apachepulsar/pulsar:latest
+    networks:
+      - pulsar
     command: >
       bin/pulsar initialize-cluster-metadata \
                --cluster cluster-a \
@@ -62,6 +71,8 @@ services:
     container_name: broker
     hostname: broker
     restart: on-failure
+    networks:
+      - pulsar
     environment:
       - metadataStoreUrl=zk:zookeeper:2181
       - zookeeperServers=zookeeper:2181
@@ -81,4 +92,28 @@ services:
       - "6650:6650"
       - "8080:8080"
     command: bash -c "bin/apply-config-from-env.py conf/broker.conf && exec bin/pulsar broker"
+
+
+
+# MySQL8
+  db:
+    image: mysql:8
+    hostname: mysqldb
+    container_name: mysqldb
+    cap_add:
+      - SYS_NICE
+    restart: always
+    environment:
+      - MYSQL_DATABASE=reservas
+      - MYSQL_ROOT_PASSWORD=adminadmin
+    profiles: ["adp", "db"]
+    networks:
+      - pulsar
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql 
+
+
 
