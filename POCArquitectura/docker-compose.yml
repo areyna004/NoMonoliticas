@@ -36,8 +36,6 @@ services:
     image: apachepulsar/pulsar:latest
     container_name: bookie
     restart: on-failure
-    networks:
-      - pulsar
     environment:
       - clusterName=cluster-a
       - zkServers=zookeeper:2181
