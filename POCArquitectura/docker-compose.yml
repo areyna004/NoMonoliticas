@@ -20,7 +20,6 @@ services:
   # Init cluster metadata
   pulsar-init:
     container_name: pulsar-init
-    hostname: pulsar-init
     image: apachepulsar/pulsar:latest
     command: >
       bin/pulsar initialize-cluster-metadata \
