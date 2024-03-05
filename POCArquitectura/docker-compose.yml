@@ -56,7 +56,6 @@ services:
   # Start broker
   broker:
     image: apachepulsar/pulsar:latest
-    container_name: broker
     restart: on-failure
     environment:
       - metadataStoreUrl=zk:zookeeper:2181
