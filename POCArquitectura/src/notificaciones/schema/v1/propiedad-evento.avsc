@@ -1,22 +1,10 @@
 {
   "type": "record",
-  "name": "EventoPropiedad",
+  "name": "EventoDTO",
   "fields": [
     {
-      "type": "string",
-      "name": "id"
-    },
-    {
-      "type": "string",
-      "name": "nombre"
-    },
-    {
-      "type": "string",
-      "name": "descripcion"
-    },
-    {
-      "type": "string",
-      "name": "fecha_creacion"
+      "name": "nombre",
+      "type": "string"
     }
   ]
 }

@@ -1,5 +1,6 @@
 from dataclasses import dataclass, field
 from seedwork.aplicacion.dto import DTO
+import json
 
 @dataclass(frozen=True)
 class DireccionDTO(DTO):
@@ -21,12 +22,14 @@ class PropiedadDTO(DTO):
 
     def to_dict(self):
         return {
-            'fecha_creacion' : self.fecha_creacion,
-            'fecha_actualizacion' : self.fecha_actualizacion,
-            'id' : self.id,
-            'nombre' : self.nombre,
-            'descripcion' : self.descripcion,
-            'tamanio' : self.tamanio,
-            'tipo' : self.tipo,
-            'direcciones' : self.direcciones
+            'nombre' : self.nombre
         }
+
+    def to_json(self):
+        return json.dumps({
+            'nombre' : str(self.nombre)
+        })
+
+@dataclass(frozen=True)
+class EventoDTO(DTO):
+    nombre: str = field(default_factory=str)

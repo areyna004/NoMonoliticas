@@ -1,4 +1,4 @@
-from pulsar import Client, AuthenticationToken
+from pulsar import Client, Message
 from avro.schema import Parse
 from avro.io import DatumReader, DatumWriter, BinaryEncoder, BinaryDecoder
 import mysql.connector
@@ -15,6 +15,7 @@ from modulos.propiedades.aplicacion.comandos.crear_propiedad import CrearPropied
 from seedwork.aplicacion.queries import ejecutar_query
 from seedwork.aplicacion.comandos import ejecutar_commando
 from modulos.propiedades.infraestructura.despachadores import Despachador
+from modulos.propiedades.aplicacion.dto import EventoDTO
 
 from config.db import init_db
 
@@ -36,13 +37,8 @@ def consumir_comandos():
             propiedad_dto = map_propiedad.externo_a_dto(propiedad_externo)
             sr = ServicioPropiedad()
             dto_final = sr.crear_propiedad(propiedad_dto)
-            bytes_io = io.BytesIO()
-            writer = DatumWriter(evento_schema)
-            encoder = BinaryEncoder(bytes_io)
-            writer.write(dto_final, encoder)
-            encoded_data = bytes_io.getvalue()
-            producer.send(encoded_data)
             consumer.acknowledge(msg)
+            producer.send(dto_final.to_json().encode('utf-8'))
         except Exception as e:
             print("Error al procesar el comando:", e)
             consumer.negative_acknowledge(msg)
@@ -52,4 +48,3 @@ if __name__ == "__main__":
 
     while True:
         consumir_comandos()
-        pass
