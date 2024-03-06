@@ -14,11 +14,6 @@ services:
       bash -c "bin/apply-config-from-env.py conf/zookeeper.conf && \
              bin/generate-zookeeper-config.sh conf/zookeeper.conf && \
              exec bin/pulsar zookeeper"
-    healthcheck:
-      test: ["CMD", "bin/pulsar-zookeeper-ruok.sh"]
-      interval: 10s
-      timeout: 5s
-      retries: 30
   # Init cluster metadata
   pulsar-init:
     container_name: pulsar-init
