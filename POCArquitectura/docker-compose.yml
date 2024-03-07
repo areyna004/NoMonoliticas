@@ -32,8 +32,7 @@ services:
                --web-service-url http://broker:8080 \
                --broker-service-url pulsar://broker:6650
     depends_on:
-      zookeeper:
-        condition: service_healthy
+      - zookeeper
   # Start bookie
   bookie:
     image: apachepulsar/pulsar:latest
@@ -48,10 +47,8 @@ services:
       - advertisedAddress=bookie
       - BOOKIE_MEM=-Xms512m -Xmx512m -XX:MaxDirectMemorySize=256m
     depends_on:
-      zookeeper:
-        condition: service_healthy
-      pulsar-init:
-        condition: service_completed_successfully
+      - zookeeper
+      - pulsar-init
     # Map the local directory to the container to avoid bookie startup failure due to insufficient container disks.
     volumes:
       - ./data/bookkeeper:/pulsar/data/bookkeeper
@@ -73,10 +70,8 @@ services:
       - advertisedListeners=external:pulsar://127.0.0.1:6650
       - PULSAR_MEM=-Xms512m -Xmx512m -XX:MaxDirectMemorySize=256m
     depends_on:
-      zookeeper:
-        condition: service_healthy
-      bookie:
-        condition: service_started
+      - zookeeper
+      - bookie
     ports:
       - "6650:6650"
       - "8080:8080"
