@@ -3,13 +3,13 @@ from avro.schema import Parse
 from avro.io import DatumReader, DatumWriter, BinaryEncoder, BinaryDecoder
 import io, sys, json
 
-comando_schema = Parse(open("src/notificaciones/schema/v1/propiedad-comando.avsc").read())
-evento_schema = Parse(open("src/notificaciones/schema/v1/propiedad-evento.avsc").read())
+comando_schema = Parse(open("src/notificaciones/schema/v1/propiedad.avsc").read())
 
 def consumir_comandos():
     client = Client('pulsar://127.0.0.1:6650')
     consumer_comandos_propiedades = client.subscribe('persistent://public/default/comandos-propiedades', 'subscripcion-1')
     consumer_eventos_propiedades = client.subscribe('persistent://public/default/eventos-propiedades', 'subscripcion-2')
+    consumer_consultas_propiedades = client.subscribe('persistent://public/default/eventos-propiedades', 'subscripcion-3')
     while True:
         msg1 = consumer_comandos_propiedades.receive()
         
