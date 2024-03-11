@@ -24,6 +24,10 @@ class OrderSaga:
         client = Client('pulsar://10.182.0.2:6650')
         producer_comandos_propiedad = client.create_producer('persistent://public/default/comandos-propiedades', chunking_enabled=True) 
         producer_comandos_propiedad.send(encoded_data)
+        client.close()
+
+    def comprobar_evento(self, propiedad_json, token):
+        client = Client('pulsar://10.182.0.2:6650')
         consumer = client.subscribe('persistent://public/default/eventos-propiedades', 'eventos-subscription-bff')
         start_time = time.time()
         timeout = 1
@@ -34,10 +38,6 @@ class OrderSaga:
                 client.close()
                 return  
         client.close()
-        raise Exception("No se recibió respuesta de Pulsar dentro del tiempo especificado")
-
-    def step3(self, propiedad_json, token):
-        print("Step 3: Perform action 3 for order")
 
     def compensate_step2(self, propiedad_json, token):
         print("Compensating Step 2 for order")
@@ -50,7 +50,7 @@ class OrderSaga:
         try:
             self.autenticar_usuario(self.propiedad_json, token)
             self.procesar_propiedad(self.propiedad_json, token)
-            self.step3(self.propiedad_json, token)
+            self.comprobar_evento(self.propiedad_json, token)
             return propiedad_json
         except Exception as e:
             self.compensate_step3(self.propiedad_json, token)
