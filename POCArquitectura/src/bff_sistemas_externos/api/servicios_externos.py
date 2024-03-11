@@ -11,7 +11,7 @@ def crear_blueprint(identificador: str, prefijo_url: str):
 
 propiedad_schema = Parse(open("src/bff_sistemas_externos/api/schema/v1/propiedad.avsc").read())
 
-client = Client('pulsar://10.182.0.2:6650')
+
 
 #consumer_comandos_propiedades = client.subscribe('persistent://public/default/eventos-propiedades', 'subscripcion-bff')
 #producer_comandos_propiedad = client.create_producer('persistent://public/default/comandos-propiedades') 
@@ -31,6 +31,7 @@ def agregar_propiedad():
             encoder = BinaryEncoder(bytes_io)
             writer.write(propiedad_data, encoder)
             encoded_data = bytes_io.getvalue()  
+            client = Client('pulsar://10.182.0.2:6650')
             producer_comandos_propiedad = client.create_producer('persistent://public/default/comandos-propiedades') 
             producer_comandos_propiedad.send(encoded_data)
             return Response('{}', status=202, mimetype='application/json')
@@ -51,6 +52,7 @@ def detalle_propiedad():
             encoder = BinaryEncoder(bytes_io)
             writer.write(propiedad_data, encoder)
             encoded_data = bytes_io.getvalue()
+            client = Client('pulsar://10.182.0.2:6650')
             producer_consultas_propiedad = client.create_producer('persistent://public/default/consultas-propiedades') 
             producer_consultas_propiedad.send(encoded_data)
 
