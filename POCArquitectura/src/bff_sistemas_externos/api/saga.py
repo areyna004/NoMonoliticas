@@ -1,6 +1,6 @@
 class OrderSaga:
-    def __init__(self, order_id):
-        self.order_id = order_id
+    def __init__(self):
+        ...
 
     def step1(self):
         print("Step 1: Perform action 1 for order", self.order_id)
