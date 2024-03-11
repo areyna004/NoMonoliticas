@@ -33,11 +33,12 @@ class OrderSaga:
             self.autenticar_usuario(self.propiedad_json, token)
             self.step2(self.propiedad_json, token)
             self.step3(self.propiedad_json, token)
+            return propiedad_json
         except Exception as e:
             print('exception')
             self.compensate_step3(self.propiedad_json, token)
             self.compensate_step2(self.propiedad_json, token)
-            raise e
+            return e
 
 
 
