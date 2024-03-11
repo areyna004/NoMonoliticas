@@ -37,7 +37,7 @@ def consumir_comandos():
         except Exception as e:
             print("Error al procesar el evento:", e)
             consumer_comandos_propiedades.negative_acknowledge(msg2)
-
+z
 def changelog(evento):
     conn = mysql.connector.connect(
         host='34.66.105.29:3306',
