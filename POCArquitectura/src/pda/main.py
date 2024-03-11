@@ -19,8 +19,8 @@ from modulos.propiedades.aplicacion.dto import EventoDTO
 
 from config.db import init_db
 
-comando_schema = Parse(open("src/notificaciones/schema/v1/propiedad-comando.avsc").read())
-evento_schema = Parse(open("src/notificaciones/schema/v1/propiedad-evento.avsc").read())
+comando_schema = Parse(open("src/pda/schema/v1/propiedad.avsc").read())
+evento_schema = Parse(open("src/pda/schema/v1/propiedad.avsc").read())
 
 def consumir_comandos():
     client = Client('pulsar://127.0.0.1:6650')
