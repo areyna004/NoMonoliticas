@@ -3,22 +3,22 @@ class OrderSaga:
         ...
 
     def step1(self, propiedad_json):
-        print("Step 1: Perform action 1 for order", self.order_id)
+        print("Step 1: Perform action 1 for order")
 
     def step2(self, propiedad_json):
-        print("Step 2: Perform action 2 for order", self.order_id)
+        print("Step 2: Perform action 2 for order")
 
     def step3(self, propiedad_json):
-        print("Step 3: Perform action 3 for order", self.order_id)
+        print("Step 3: Perform action 3 for order")
 
     def compensate_step1(self, propiedad_json):
-        print("Compensating Step 1 for order", self.order_id)
+        print("Compensating Step 1 for order")
 
     def compensate_step2(self, propiedad_json):
-        print("Compensating Step 2 for order", self.order_id)
+        print("Compensating Step 2 for order")
 
     def compensate_step3(self, propiedad_json):
-        print("Compensating Step 3 for order", self.order_id)
+        print("Compensating Step 3 for order")
 
     def execute(self, propiedad_json):
         self.propiedad_json = propiedad_json
