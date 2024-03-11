@@ -39,7 +39,7 @@ class OrderSaga:
         self.propiedad_json = propiedad_json
         try:
             self.autenticar_usuario(self.propiedad_json, token)
-            self.step2(self.propiedad_json, token)
+            self.procesar_propiedad(self.propiedad_json, token)
             self.step3(self.propiedad_json, token)
             return propiedad_json
         except Exception as e:
