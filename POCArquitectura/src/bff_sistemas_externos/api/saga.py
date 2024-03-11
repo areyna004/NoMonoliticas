@@ -34,6 +34,7 @@ class OrderSaga:
             self.step2(self.propiedad_json, token)
             self.step3(self.propiedad_json, token)
         except Exception as e:
+            print('exception')
             self.compensate_step3(self.propiedad_json, token)
             self.compensate_step2(self.propiedad_json, token)
             raise e
