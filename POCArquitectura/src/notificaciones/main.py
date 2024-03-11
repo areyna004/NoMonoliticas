@@ -2,6 +2,8 @@ from pulsar import Client, AuthenticationToken
 from avro.schema import Parse
 from avro.io import DatumReader, DatumWriter, BinaryEncoder, BinaryDecoder
 import io, sys, json
+import mysql.connector
+from datetime import datetime
 
 comando_schema = Parse(open("src/notificaciones/schema/v1/propiedad.avsc").read())
 
@@ -20,6 +22,7 @@ def consumir_comandos():
             reader = DatumReader(comando_schema)
             comando_data = reader.read(decoder)
             print("Comando recibido:", comando_data)
+            changelog("Comando recibido:"+ str(comando_data))
             consumer_comandos_propiedades.acknowledge(msg1)
         except Exception as e:
             print("Error al procesar el comando:", e)
@@ -29,12 +32,32 @@ def consumir_comandos():
         try: 
             data = json.loads(msg2.data().decode('utf-8'))
             print("Evento recibido:", data)
+            changelog("Evento recibido:" + str(data))
             consumer_eventos_propiedades.acknowledge(msg2)
         except Exception as e:
             print("Error al procesar el evento:", e)
             consumer_comandos_propiedades.negative_acknowledge(msg2)
 
+def changelog(evento):
+    conn = mysql.connector.connect(
+        host='34.66.105.29:3306',
+        user='root',
+        password='U6yEZgrAjc6c1olP',
+        database='deb-eventos'
+    )
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS eventos (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            evento TEXT,
+            hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    ''')
+    conn.commit()
 
+    cursor.execute('INSERT INTO eventos (evento) VALUES (%s)', (evento,))
+    conn.commit()
+    conn.close()
 
 if __name__ == "__main__":
     consumir_comandos()
