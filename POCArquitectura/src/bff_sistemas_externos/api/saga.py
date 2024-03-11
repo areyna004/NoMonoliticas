@@ -28,7 +28,7 @@ class OrderSaga:
         start_time = time.time()
         timeout = 5
         while time.time() - start_time < timeout:
-            msg = consumer.receive(timeout=1)
+            msg = consumer.receive()
             if msg:
                 consumer.acknowledge(msg)
                 client.close()
