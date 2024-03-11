@@ -27,7 +27,10 @@ def agregar_propiedad():
         propiedad_data = request.json
         saga = OrderSaga()
         response = saga.execute(propiedad_data, get_token())
-        return Response(response, status=202, mimetype='application/json')
+        if response == propiedad_data:
+            return Response(response, status=202, mimetype='application/json')
+        else:
+            raise Exception(response)
     except Exception as e:
         return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')
 
