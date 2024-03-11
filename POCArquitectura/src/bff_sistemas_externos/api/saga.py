@@ -12,7 +12,7 @@ class OrderSaga:
 
     def autenticar_usuario(self, propiedad_json, token):
         is_token = revisar_token(token)
-        if is_token == None:
+        if is_token == False:
             raise Exception("No se pudo autenticar el usuario")
 
     def step2(self, propiedad_json, token):
@@ -35,7 +35,6 @@ class OrderSaga:
             self.step3(self.propiedad_json, token)
             return propiedad_json
         except Exception as e:
-            print('exception')
             self.compensate_step3(self.propiedad_json, token)
             self.compensate_step2(self.propiedad_json, token)
             return e
