@@ -5,13 +5,14 @@ from avro.schema import Parse
 from avro.io import DatumReader, DatumWriter, BinaryEncoder, BinaryDecoder
 from pulsar import Client, AuthenticationToken
 from bff_sistemas_externos.api.utils import revisar_token
+from .saga import OrderSaga
 
 def crear_blueprint(identificador: str, prefijo_url: str):
     return Blueprint(identificador, __name__, url_prefix=prefijo_url)
 
 propiedad_schema = Parse(open("src/bff_sistemas_externos/api/schema/v1/propiedad.avsc").read())
 
-
+saga = OrderSaga()
 
 #consumer_comandos_propiedades = client.subscribe('persistent://public/default/eventos-propiedades', 'subscripcion-bff')
 #producer_comandos_propiedad = client.create_producer('persistent://public/default/comandos-propiedades') 
@@ -26,15 +27,7 @@ def agregar_propiedad():
         token = revisar_token()
         if token:
             propiedad_data = request.json
-            bytes_io = io.BytesIO()
-            writer = DatumWriter(propiedad_schema)
-            encoder = BinaryEncoder(bytes_io)
-            writer.write(propiedad_data, encoder)
-            encoded_data = bytes_io.getvalue()  
-            client = Client('pulsar://10.182.0.2:6650')
-            producer_comandos_propiedad = client.create_producer('persistent://public/default/comandos-propiedades', chunking_enabled=True) 
-            producer_comandos_propiedad.send(encoded_data)
-            client.close()
+            saga.execute(propiedad_data)
             return Response('{}', status=202, mimetype='application/json')
         else:
             return Response('Unauthorized', status=403, mimetype='application/json')

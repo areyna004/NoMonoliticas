@@ -1,0 +1,35 @@
+{
+  "collect_verbs":true,
+  "trans_cache":true,
+  "translator":"google",
+  "retries":3,
+  "enable_chunks_parse":true,
+  "enable_ascii_viz":true,
+  "append_ascii_viz":false,
+  "print_not_matched":false,
+  "print_inspector_result":true,
+  "bert_servant":"pc",
+  "ofbiz_servant":"192.168.33.30",
+  "common_s":"http://localhost:14000",
+  "servants":{
+    "corenlp":"http://localhost:14000",
+    "stanford":"http://localhost:14001",
+    "ltp":"http://localhost:14000",
+    "hanlp":"http://localhost:14000",
+    "knp":"http://localhost:14000",
+    "spacy":"http://localhost:14001",
+    "spacy_2.2":"http://localhost:14002"
+  },
+  "dialectors":{
+    "*":"corenlp",
+    "auto":"corenlp",
+    "el":"corenlp",
+    "ru":"corenlp",
+    "zh":"ltp",
+    "ja":"knp",
+    "pt":"corenlp",
+    "ar":"stanford",
+    "lt":"spacy_2.2"
+  }
+}
+

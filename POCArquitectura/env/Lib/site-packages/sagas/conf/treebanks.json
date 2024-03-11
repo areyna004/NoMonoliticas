@@ -1,0 +1,296 @@
+[
+  {
+    "name": "af",
+    "lang": "Afrikaans",
+    "model": "af_afribooms",
+    "version": "0.2.0",
+    "treebank": "AfriBooms"
+  },
+  {
+    "name": "ar",
+    "lang": "Arabic",
+    "model": "ar_padt",
+    "version": "0.2.0",
+    "treebank": "PADT"
+  },
+  {
+    "name": "bg",
+    "lang": "Bulgarian",
+    "model": "bg_btb",
+    "version": "0.2.0",
+    "treebank": "BTB"
+  },
+  {
+    "name": "ca",
+    "lang": "Catalan",
+    "model": "ca_ancora",
+    "version": "0.2.0",
+    "treebank": "AnCora"
+  },
+  {
+    "name": "cs",
+    "lang": "Czech",
+    "model": "cs_pdt",
+    "version": "0.2.0",
+    "treebank": "PDT"
+  },
+  {
+    "name": "da",
+    "lang": "Danish",
+    "model": "da_ddt",
+    "version": "0.2.0",
+    "treebank": "DDT"
+  },
+  {
+    "name": "de",
+    "lang": "German",
+    "model": "de_gsd",
+    "version": "0.2.0",
+    "treebank": "GSD"
+  },
+  {
+    "name": "el",
+    "lang": "Greek",
+    "model": "el_gdt",
+    "version": "0.2.0",
+    "treebank": "GDT"
+  },
+  {
+    "name": "en",
+    "lang": "English",
+    "model": "en_ewt",
+    "version": "0.2.0",
+    "treebank": "EWT"
+  },
+  {
+    "name": "es",
+    "lang": "Spanish",
+    "model": "es_ancora",
+    "version": "0.2.0",
+    "treebank": "AnCora"
+  },
+  {
+    "name": "et",
+    "lang": "Estonian",
+    "model": "et_edt",
+    "version": "0.2.0",
+    "treebank": "EDT"
+  },
+  {
+    "name": "fa",
+    "lang": "Persian",
+    "model": "fa_seraji",
+    "version": "0.2.0",
+    "treebank": "Seraji"
+  },
+  {
+    "name": "fi",
+    "lang": "Finnish",
+    "model": "fi_ftb",
+    "version": "0.2.0",
+    "treebank": "FTB"
+  },
+  {
+    "name": "fr",
+    "lang": "French",
+    "model": "fr_gsd",
+    "version": "0.2.0",
+    "treebank": "GSD"
+  },
+  {
+    "name": "ga",
+    "lang": "Irish",
+    "model": "ga_idt",
+    "version": "0.2.0",
+    "treebank": "IDT"
+  },
+  {
+    "name": "gl",
+    "lang": "Galician",
+    "model": "gl_ctg",
+    "version": "0.2.0",
+    "treebank": "CTG"
+  },
+  {
+    "name": "he",
+    "lang": "Hebrew",
+    "model": "he_htb",
+    "version": "0.2.0",
+    "treebank": "HTB"
+  },
+  {
+    "name": "hi",
+    "lang": "Hindi",
+    "model": "hi_hdtb",
+    "version": "0.2.0",
+    "treebank": "HDTB"
+  },
+  {
+    "name": "hr",
+    "lang": "Croatian",
+    "model": "hr_set",
+    "version": "0.2.0",
+    "treebank": "SET"
+  },
+  {
+    "name": "hu",
+    "lang": "Hungarian",
+    "model": "hu_szeged",
+    "version": "0.2.0",
+    "treebank": "Szeged"
+  },
+  {
+    "name": "hy",
+    "lang": "Armenian",
+    "model": "hy_armtdp",
+    "version": "0.2.0",
+    "treebank": "ArmTDP"
+  },
+  {
+    "name": "id",
+    "lang": "Indonesian",
+    "model": "id_gsd",
+    "version": "0.2.0",
+    "treebank": "GSD"
+  },
+  {
+    "name": "it",
+    "lang": "Italian",
+    "model": "it_isdt",
+    "version": "0.2.0",
+    "treebank": "ISDT"
+  },
+  {
+    "name": "ja",
+    "lang": "Japanese",
+    "model": "ja_gsd",
+    "version": "0.2.0",
+    "treebank": "GSD"
+  },
+  {
+    "name": "ko",
+    "lang": "Korean",
+    "model": "ko_kaist",
+    "version": "0.2.0",
+    "treebank": "Kaist"
+  },
+  {
+    "name": "lv",
+    "lang": "Latvian",
+    "model": "lv_lvtb",
+    "version": "0.2.0",
+    "treebank": "LVTB"
+  },
+  {
+    "name": "nl",
+    "lang": "Dutch",
+    "model": "nl_alpino",
+    "version": "0.2.0",
+    "treebank": "Alpino"
+  },
+  {
+    "name": "no_bokmaal",
+    "lang": "Norwegian",
+    "model": "no_bokmaal",
+    "version": "0.2.0",
+    "treebank": "Bokmaal"
+  },
+  {
+    "name": "pl",
+    "lang": "Polish",
+    "model": "pl_lfg",
+    "version": "0.2.0",
+    "treebank": "LFG"
+  },
+  {
+    "name": "pt",
+    "lang": "Portuguese",
+    "model": "pt_bosque",
+    "version": "0.2.0",
+    "treebank": "Bosque"
+  },
+  {
+    "name": "ro",
+    "lang": "Romanian",
+    "model": "ro_rrt",
+    "version": "0.2.0",
+    "treebank": "RRT"
+  },
+  {
+    "name": "ru",
+    "lang": "Russian",
+    "model": "ru_syntagrus",
+    "version": "0.2.0",
+    "treebank": "SynTagRus"
+  },
+  {
+    "name": "sk",
+    "lang": "Slovak",
+    "model": "sk_snk",
+    "version": "0.2.0",
+    "treebank": "SNK"
+  },
+  {
+    "name": "sl",
+    "lang": "Slovenian",
+    "model": "sl_ssj",
+    "version": "0.2.0",
+    "treebank": "SSJ"
+  },
+  {
+    "name": "sr",
+    "lang": "Serbian",
+    "model": "sr_set",
+    "version": "0.2.0",
+    "treebank": "SET"
+  },
+  {
+    "name": "sv",
+    "lang": "Swedish",
+    "model": "sv_talbanken",
+    "version": "0.2.0",
+    "treebank": "Talbanken"
+  },
+  {
+    "name": "tr",
+    "lang": "Turkish",
+    "model": "tr_imst",
+    "version": "0.2.0",
+    "treebank": "IMST"
+  },
+  {
+    "name": "ug",
+    "lang": "Uyghur",
+    "model": "ug_udt",
+    "version": "0.2.0",
+    "treebank": "UDT"
+  },
+  {
+    "name": "uk",
+    "lang": "Ukrainian",
+    "model": "uk_iu",
+    "version": "0.2.0",
+    "treebank": "IU"
+  },
+  {
+    "name": "ur",
+    "lang": "Urdu",
+    "model": "ur_udtb",
+    "version": "0.2.0",
+    "treebank": "UDTB"
+  },
+  {
+    "name": "vi",
+    "lang": "Vietnamese",
+    "model": "vi_vtb",
+    "version": "0.2.0",
+    "treebank": "VTB"
+  },
+  {
+    "name": "zh",
+    "lang": "Chinese (traditional)",
+    "model": "zh_gsd",
+    "version": "0.2.0",
+    "treebank": "GSD"
+  }
+]

@@ -1,0 +1,72 @@
+Metadata-Version: 2.1
+Name: sagas
+Version: 0.6.0
+Summary: sagas ai stack
+Home-page: https://github.com/samlet/stack
+Author: Samlet Wu
+Author-email: xiaofei.wu@gmail.com
+License: UNKNOWN
+Project-URL: Bug Reports, https://github.com/samlet/stack/issues
+Project-URL: Source, https://github.com/samlet/stack
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: colorlog
+Requires-Dist: cached-property
+Requires-Dist: fire
+Requires-Dist: simplejson
+Requires-Dist: PyYAML
+Requires-Dist: cachetools
+Requires-Dist: py4j
+Provides-Extra: datset
+Requires-Dist: pyarrow ; extra == 'datset'
+Requires-Dist: feedparser ; extra == 'datset'
+Requires-Dist: pydgraph ; extra == 'datset'
+Provides-Extra: interactive
+Requires-Dist: matplotlib (<4.0.0,>=3.0.3) ; extra == 'interactive'
+Requires-Dist: jupyter ; extra == 'interactive'
+Requires-Dist: streamlit ; extra == 'interactive'
+Requires-Dist: graphviz ; extra == 'interactive'
+Requires-Dist: clipboard ; extra == 'interactive'
+Provides-Extra: lang_ja
+Requires-Dist: pyknp ; extra == 'lang_ja'
+Provides-Extra: lang_ru
+Requires-Dist: natasha ; extra == 'lang_ru'
+Requires-Dist: pymorphy2[fast] (~=0.8) ; extra == 'lang_ru'
+Provides-Extra: lang_zh
+Requires-Dist: pypinyin ; extra == 'lang_zh'
+Requires-Dist: jieba ; extra == 'lang_zh'
+Requires-Dist: pyltp ; extra == 'lang_zh'
+Provides-Extra: nlp
+Requires-Dist: nltk ; extra == 'nlp'
+Requires-Dist: spacy ; extra == 'nlp'
+Requires-Dist: snips-nlu ; extra == 'nlp'
+Requires-Dist: stanfordnlp ; extra == 'nlp'
+Requires-Dist: kroman ; extra == 'nlp'
+Requires-Dist: cyrtranslit ; extra == 'nlp'
+Requires-Dist: iso-639 ; extra == 'nlp'
+Requires-Dist: pyicu ; extra == 'nlp'
+Requires-Dist: morfessor ; extra == 'nlp'
+Requires-Dist: pycld2 ; extra == 'nlp'
+Requires-Dist: polyglot ; extra == 'nlp'
+Requires-Dist: bert-serving-client ; extra == 'nlp'
+Requires-Dist: bert-serving-server ; extra == 'nlp'
+Provides-Extra: rasa
+Requires-Dist: rasa (~=1.6.0) ; extra == 'rasa'
+Requires-Dist: rasa-sdk (~=1.6.0) ; extra == 'rasa'
+Provides-Extra: servant
+Requires-Dist: waitress ; extra == 'servant'
+Requires-Dist: sanic ; extra == 'servant'
+Requires-Dist: pika ; extra == 'servant'
+Requires-Dist: aio-pika ; extra == 'servant'
+Requires-Dist: kazoo ; extra == 'servant'
+
+[![Version](https://img.shields.io/pypi/v/sagas.svg)](https://pypi.python.org/pypi/sagas/)
+# stack
+
+sagas.ai stack project.
+
+

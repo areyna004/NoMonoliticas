@@ -1,0 +1,11 @@
+[
+  {
+    "intent": "behave_purpose",
+    "action": "action_log_commevent"
+  },
+  {
+    "intent": "perform_media",
+    "action": "action_perform_media"
+  }
+]
+
