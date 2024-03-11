@@ -10,34 +10,32 @@ class OrderSaga:
     def __init__(self):
         ...
 
-    def step1(self, propiedad_json):
-        print("Step 1: Perform action 1 for order")
+    def autenticar_usuario(self, propiedad_json, token):
+        is_token = revisar_token(token)
+        if is_token == None:
+            raise Exception("No se pudo autenticar el usuario")
 
-    def step2(self, propiedad_json):
+    def step2(self, propiedad_json, token):
         print("Step 2: Perform action 2 for order")
 
-    def step3(self, propiedad_json):
+    def step3(self, propiedad_json, token):
         print("Step 3: Perform action 3 for order")
 
-    def compensate_step1(self, propiedad_json):
-        print("Compensating Step 1 for order")
-
-    def compensate_step2(self, propiedad_json):
+    def compensate_step2(self, propiedad_json, token):
         print("Compensating Step 2 for order")
 
-    def compensate_step3(self, propiedad_json):
+    def compensate_step3(self, propiedad_json, token):
         print("Compensating Step 3 for order")
 
-    def execute(self, propiedad_json):
+    def execute(self, propiedad_json, token):
         self.propiedad_json = propiedad_json
         try:
-            self.step1(self.propiedad_json)
-            self.step2(self.propiedad_json)
-            self.step3(self.propiedad_json)
+            self.autenticar_usuario(self.propiedad_json, token)
+            self.step2(self.propiedad_json, token)
+            self.step3(self.propiedad_json, token)
         except Exception as e:
-            self.compensate_step3(self.propiedad_json)
-            self.compensate_step2(self.propiedad_json)
-            self.compensate_step1(self.propiedad_json)
+            self.compensate_step3(self.propiedad_json, token)
+            self.compensate_step2(self.propiedad_json, token)
             raise e
 
 
@@ -51,3 +49,5 @@ class OrderSaga:
             producer_comandos_propiedad = client.create_producer('persistent://public/default/comandos-propiedades', chunking_enabled=True) 
             producer_comandos_propiedad.send(encoded_data)
             client.close()'''
+
+

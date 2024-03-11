@@ -4,7 +4,7 @@ from flask import Blueprint, flash, g, redirect, render_template, request, sessi
 from avro.schema import Parse
 from avro.io import DatumReader, DatumWriter, BinaryEncoder, BinaryDecoder
 from pulsar import Client, AuthenticationToken
-from bff_sistemas_externos.api.utils import revisar_token
+from bff_sistemas_externos.api.utils import revisar_token, get_token
 from .saga import OrderSaga
 
 def crear_blueprint(identificador: str, prefijo_url: str):
@@ -26,7 +26,7 @@ def agregar_propiedad():
     try:
         propiedad_data = request.json
         saga = OrderSaga()
-        saga.execute(propiedad_data)
+        saga.execute(propiedad_data, get_token())
         return Response(propiedad_data, status=202, mimetype='application/json')
     except Exception as e:
         return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')
