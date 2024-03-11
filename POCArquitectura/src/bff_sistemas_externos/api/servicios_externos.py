@@ -14,7 +14,7 @@ propiedad_schema = Parse(open("src/bff_sistemas_externos/api/schema/v1/propiedad
 client = Client('pulsar://34.16.163.13:6650')
 
 #consumer_comandos_propiedades = client.subscribe('persistent://public/default/eventos-propiedades', 'subscripcion-bff')
-producer_comandos_propiedad = client.create_producer('persistent://public/default/comandos-propiedades') 
+#producer_comandos_propiedad = client.create_producer('persistent://public/default/comandos-propiedades') 
             
 
 
