@@ -1,49 +1,36 @@
-from sagas import Saga
-
-class OrderSaga(Saga):
+class OrderSaga:
     def __init__(self, order_id):
         self.order_id = order_id
 
-    def autenticar_usuario(self):
-        # Implement logic to authenticate the user
-        print("Authenticating user...")
+    def step1(self):
+        print("Step 1: Perform action 1 for order", self.order_id)
 
-    def procesar_cambio(self):
-        # Implement logic to process changes for the order
-        print("Processing changes...")
+    def step2(self):
+        print("Step 2: Perform action 2 for order", self.order_id)
 
-    def mandar_notificacion(self):
-        # Implement logic to send notifications for the order
-        print("Sending notifications...")
+    def step3(self):
+        print("Step 3: Perform action 3 for order", self.order_id)
 
-    def rollback_autenticar_usuario(self):
-        # Implement compensating action for authenticating user
-        print("Rolling back user authentication...")
+    def compensate_step1(self):
+        print("Compensating Step 1 for order", self.order_id)
 
-    def rollback_procesar_cambio(self):
-        # Implement compensating action for processing changes
-        print("Rolling back changes processing...")
+    def compensate_step2(self):
+        print("Compensating Step 2 for order", self.order_id)
 
-    def rollback_mandar_notificacion(self):
-        # Implement compensating action for sending notifications
-        print("Rolling back notification sending...")
+    def compensate_step3(self):
+        print("Compensating Step 3 for order", self.order_id)
 
     def execute(self):
         try:
-            self.autenticar_usuario()
-            self.procesar_cambio()
-            self.mandar_notificacion()
+            self.step1()
+            self.step2()
+            self.step3()
         except Exception as e:
-            self.rollback_autenticar_usuario()
-            self.rollback_procesar_cambio()
-            self.rollback_mandar_notificacion()
+            self.compensate_step3()
+            self.compensate_step2()
+            self.compensate_step1()
             raise e
 
-# Example usage
-if __name__ == "__main__":
-    order_id = 12345
-    saga = OrderSaga(order_id)
-    saga.execute()
 
 
 '''bytes_io = io.BytesIO()
