@@ -23,7 +23,7 @@ comando_schema = Parse(open("src/pda/schema/v1/propiedad.avsc").read())
 evento_schema = Parse(open("src/pda/schema/v1/propiedad.avsc").read())
 
 def consumir_comandos():
-    client = Client('pulsar://127.0.0.1:6650')
+    client = Client('pulsar://10.182.0.2:6650')
     consumer = client.subscribe('persistent://public/default/comandos-propiedades', 'subscripcion-2')
     producer = client.create_producer('persistent://public/default/eventos-propiedades')
     while True:
