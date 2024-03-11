@@ -23,14 +23,10 @@ bp = crear_blueprint('usuarios_externos', '/usuarios_externos')
 
 @bp.route('/propiedad', methods=['POST'])
 def agregar_propiedad():
+    
     try:
-        token = revisar_token()
-        if token:
-            propiedad_data = request.json
-            saga.execute(propiedad_data)
-            return Response('{}', status=202, mimetype='application/json')
-        else:
-            return Response('Unauthorized', status=403, mimetype='application/json')
+        propiedad_data = request.json
+        saga.execute(propiedad_data)
         
     except Exception as e:
         return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')

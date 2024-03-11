@@ -1,3 +1,11 @@
+import json, functools, io
+from flask import redirect, render_template, request, session, url_for
+from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for, Response
+from avro.schema import Parse
+from avro.io import DatumReader, DatumWriter, BinaryEncoder, BinaryDecoder
+from pulsar import Client, AuthenticationToken
+from bff_sistemas_externos.api.utils import revisar_token
+
 class OrderSaga:
     def __init__(self):
         ...
