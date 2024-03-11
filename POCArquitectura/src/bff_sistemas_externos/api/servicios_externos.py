@@ -12,7 +12,6 @@ def crear_blueprint(identificador: str, prefijo_url: str):
 
 propiedad_schema = Parse(open("src/bff_sistemas_externos/api/schema/v1/propiedad.avsc").read())
 
-saga = OrderSaga()
 
 #consumer_comandos_propiedades = client.subscribe('persistent://public/default/eventos-propiedades', 'subscripcion-bff')
 #producer_comandos_propiedad = client.create_producer('persistent://public/default/comandos-propiedades') 
@@ -26,7 +25,8 @@ def agregar_propiedad():
     
     try:
         propiedad_data = request.json
-        #saga.execute(propiedad_data)
+        saga = OrderSaga()
+        saga.execute(propiedad_data)
         return Response(propiedad_data, status=202, mimetype='application/json')
     except Exception as e:
         return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')
