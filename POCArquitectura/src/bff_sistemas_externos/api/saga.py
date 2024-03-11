@@ -8,15 +8,23 @@ from bff_sistemas_externos.api.utils import revisar_token
 
 class OrderSaga:
     def __init__(self):
-        ...
+        self.propiedad_schema = Parse(open("src/bff_sistemas_externos/api/schema/v1/propiedad.avsc").read())
 
     def autenticar_usuario(self, propiedad_json, token):
         is_token = revisar_token(token)
         if is_token == False:
             raise Exception("No se pudo autenticar el usuario")
 
-    def step2(self, propiedad_json, token):
-        print("Step 2: Perform action 2 for order")
+    def procesar_propiedad(self, propiedad_json, token):
+        bytes_io = io.BytesIO()
+        writer = DatumWriter(self.propiedad_schema)
+        encoder = BinaryEncoder(bytes_io)
+        writer.write(propiedad_json, encoder)
+        encoded_data = bytes_io.getvalue()  
+        client = Client('pulsar://10.182.0.2:6650')
+        producer_comandos_propiedad = client.create_producer('persistent://public/default/comandos-propiedades', chunking_enabled=True) 
+        producer_comandos_propiedad.send(encoded_data)
+        client.close()
 
     def step3(self, propiedad_json, token):
         print("Step 3: Perform action 3 for order")
