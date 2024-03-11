@@ -32,7 +32,7 @@ def agregar_propiedad():
             writer.write(propiedad_data, encoder)
             encoded_data = bytes_io.getvalue()  
             client = Client('pulsar://10.182.0.2:6650')
-            producer_comandos_propiedad = client.create_producer('persistent://public/default/comandos-propiedades') 
+            producer_comandos_propiedad = client.create_producer('persistent://public/default/comandos-propiedades', chunking_enabled=True) 
             producer_comandos_propiedad.send(encoded_data)
             return Response('{}', status=202, mimetype='application/json')
         else:
