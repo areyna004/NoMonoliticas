@@ -40,7 +40,7 @@ def consumir_comandos():
 
 def changelog(evento):
     conn = mysql.connector.connect(
-        host='34.66.105.29:3306',
+        host='34.66.105.29',
         user='root',
         password='U6yEZgrAjc6c1olP',
         database='deb-eventos'
