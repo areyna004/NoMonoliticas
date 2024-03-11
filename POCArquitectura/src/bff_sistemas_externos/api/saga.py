@@ -2,33 +2,34 @@ class OrderSaga:
     def __init__(self):
         ...
 
-    def step1(self):
+    def step1(self, propiedad_json):
         print("Step 1: Perform action 1 for order", self.order_id)
 
-    def step2(self):
+    def step2(self, propiedad_json):
         print("Step 2: Perform action 2 for order", self.order_id)
 
-    def step3(self):
+    def step3(self, propiedad_json):
         print("Step 3: Perform action 3 for order", self.order_id)
 
-    def compensate_step1(self):
+    def compensate_step1(self, propiedad_json):
         print("Compensating Step 1 for order", self.order_id)
 
-    def compensate_step2(self):
+    def compensate_step2(self, propiedad_json):
         print("Compensating Step 2 for order", self.order_id)
 
-    def compensate_step3(self):
+    def compensate_step3(self, propiedad_json):
         print("Compensating Step 3 for order", self.order_id)
 
-    def execute(self):
+    def execute(self, propiedad_json):
+        self.propiedad_json = propiedad_json
         try:
-            self.step1()
-            self.step2()
-            self.step3()
+            self.step1(self.propiedad_json)
+            self.step2(self.propiedad_json)
+            self.step3(self.propiedad_json)
         except Exception as e:
-            self.compensate_step3()
-            self.compensate_step2()
-            self.compensate_step1()
+            self.compensate_step3(self.propiedad_json)
+            self.compensate_step2(self.propiedad_json)
+            self.compensate_step1(self.propiedad_json)
             raise e
 
 
