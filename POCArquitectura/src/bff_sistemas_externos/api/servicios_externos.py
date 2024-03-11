@@ -11,9 +11,9 @@ def crear_blueprint(identificador: str, prefijo_url: str):
 
 propiedad_schema = Parse(open("src/bff_sistemas_externos/api/schema/v1/propiedad.avsc").read())
 
-client = Client('pulsar://10.182.0.2:6650')
+client = Client('pulsar://34.16.163.13:6650')
 
-consumer_comandos_propiedades = client.subscribe('persistent://public/default/eventos-propiedades', 'subscripcion-bff')
+#consumer_comandos_propiedades = client.subscribe('persistent://public/default/eventos-propiedades', 'subscripcion-bff')
 
 
 
