@@ -6,7 +6,7 @@ import io, sys, json
 comando_schema = Parse(open("src/notificaciones/schema/v1/propiedad.avsc").read())
 
 def consumir_comandos():
-    client = Client('pulsar://127.0.0.1:6650')
+    client = Client('pulsar://10.182.0.2:6650')
     consumer_comandos_propiedades = client.subscribe('persistent://public/default/comandos-propiedades', 'subscripcion-1')
     consumer_eventos_propiedades = client.subscribe('persistent://public/default/eventos-propiedades', 'subscripcion-2')
     consumer_consultas_propiedades = client.subscribe('persistent://public/default/eventos-propiedades', 'subscripcion-3')
