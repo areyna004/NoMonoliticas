@@ -34,6 +34,7 @@ def agregar_propiedad():
             client = Client('pulsar://10.182.0.2:6650')
             producer_comandos_propiedad = client.create_producer('persistent://public/default/comandos-propiedades', chunking_enabled=True) 
             producer_comandos_propiedad.send(encoded_data)
+            client.close()
             return Response('{}', status=202, mimetype='application/json')
         else:
             return Response('Unauthorized', status=403, mimetype='application/json')
