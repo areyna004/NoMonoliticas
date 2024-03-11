@@ -26,7 +26,7 @@ class OrderSaga:
         producer_comandos_propiedad.send(encoded_data)
         consumer = client.subscribe('persistent://public/default/eventos-propiedades', 'eventos-subscription-bff')
         start_time = time.time()
-        timeout = 5
+        timeout = 1
         while time.time() - start_time < timeout:
             msg = consumer.receive()
             if msg:
