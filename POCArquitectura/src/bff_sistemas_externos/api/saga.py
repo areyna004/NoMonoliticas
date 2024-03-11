@@ -1,4 +1,4 @@
-import json, functools, io
+import json, functools, io, time
 from flask import redirect, render_template, request, session, url_for
 from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for, Response
 from avro.schema import Parse
@@ -24,7 +24,17 @@ class OrderSaga:
         client = Client('pulsar://10.182.0.2:6650')
         producer_comandos_propiedad = client.create_producer('persistent://public/default/comandos-propiedades', chunking_enabled=True) 
         producer_comandos_propiedad.send(encoded_data)
+        consumer = client.subscribe('persistent://public/default/eventos-propiedades', 'eventos-subscription-bff')
+        start_time = time.time()
+        timeout = 5
+        while time.time() - start_time < timeout:
+            msg = consumer.receive(timeout=1)
+            if msg:
+                consumer.acknowledge(msg)
+                client.close()
+                return  
         client.close()
+        raise Exception("No se recibió respuesta de Pulsar dentro del tiempo especificado")
 
     def step3(self, propiedad_json, token):
         print("Step 3: Perform action 3 for order")
