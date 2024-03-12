@@ -36,9 +36,9 @@ def consumir_comandos():
             changelog("Evento recibido:" + str(data))
             consumer_eventos_propiedades.acknowledge(msg2)
             client = Client('pulsar://10.182.0.2:6650')
-            producer_comandos_propiedad = client.create_producer('persistent://public/default/eventos-notificaciones', chunking_enabled=True) 
-            producer_comandos_propiedad.send(msg2.data())
-            client.close()
+            producer_notif_propiedad = client.create_producer('persistent://public/default/eventos-notificaciones', chunking_enabled=True) 
+            producer_notif_propiedad.send(msg2.data())
+        
         except Exception as e:
             print("Error al procesar el evento:", e)
             consumer_comandos_propiedades.negative_acknowledge(msg2)
