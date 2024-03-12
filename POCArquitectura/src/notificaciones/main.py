@@ -12,8 +12,8 @@ def consumir_comandos():
     consumer_comandos_propiedades = client.subscribe('persistent://public/default/comandos-propiedades', 'subscripcion-1')
     consumer_eventos_propiedades = client.subscribe('persistent://public/default/eventos-propiedades', 'subscripcion-2')
     consumer_compensacion_propiedades = client.subscribe('persistent://public/default/compensacion-propiedades', 'subscripcion-3')
-    producer_notif_propiedad = client.create_producer('persistent://public/default/eventos-notificaciones', chunking_enabled=True) 
-    producer_notif_propiedad = client.create_producer('persistent://public/default/eventos-notificaciones', chunking_enabled=True) 
+    producer_notif_propiedad = client.create_producer('persistent://public/default/eventos-notificaciones') 
+    producer_notif_propiedad = client.create_producer('persistent://public/default/eventos-notificaciones') 
 
     while True:
         msg1 = consumer_comandos_propiedades.receive()
@@ -53,8 +53,6 @@ def consumir_comandos():
             data = json.loads(msg3.data().decode('utf-8'))
             print("Evento de Compensacion recibido:", data)
             changelog("Compensacion recibida:" + str(data))
-            
-            
             producer_notif_propiedad.send(msg3.data())
         
         except Exception as e:
@@ -83,5 +81,4 @@ def changelog(evento):
     conn.close()
 
 if __name__ == "__main__":
-    while True:
-        consumir_comandos()
+    consumir_comandos()
