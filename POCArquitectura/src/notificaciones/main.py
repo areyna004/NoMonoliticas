@@ -26,7 +26,7 @@ def consumir_comandos():
                 reader = DatumReader(comando_schema)
                 comando_data = reader.read(decoder)
                 print("Comando recibido:", comando_data)
-                changelog("Comando recibido:"+ str(comando_data), data['trans_id'])
+                changelog("Comando recibido:"+ str(comando_data), comando_data['trans_id'])
             except Exception as e:
                 print("Error al procesar el comando:", e)
                 consumer_comandos_propiedades.negative_acknowledge(msg1)
