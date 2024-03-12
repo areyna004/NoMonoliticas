@@ -16,6 +16,7 @@ class OrderSaga:
             raise Exception("No se pudo autenticar el usuario")
 
     def procesar_propiedad(self, propiedad_json, token):
+        propiedad_json['accion'] = 'crear'
         bytes_io = io.BytesIO()
         writer = DatumWriter(self.propiedad_schema)
         encoder = BinaryEncoder(bytes_io)

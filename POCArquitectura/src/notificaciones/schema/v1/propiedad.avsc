@@ -6,6 +6,7 @@
     {"name": "descripcion", "type": "string"},
     {"name": "tamanio", "type": "int"},
     {"name": "tipo", "type": "string"},
-    {"name": "direccion", "type": {"type": "array", "items": "string"}}
+    {"name": "direccion", "type": {"type": "array", "items": "string"}},
+    {"name": "accion", "type": "string"}
   ]
 }
