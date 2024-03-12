@@ -33,10 +33,11 @@ def consumir_comandos():
         msg2 = consumer_eventos_propiedades.receive()
 
         try: 
+            consumer_eventos_propiedades.acknowledge(msg2)
             data = json.loads(msg2.data().decode('utf-8'))
             print("Evento recibido:", data)
             changelog("Evento recibido:" + str(data))
-            consumer_eventos_propiedades.acknowledge(msg2)
+            
             if data['nombre'] != 'Casa Repetida':
                 
                 producer_notif_propiedad.send(msg2.data())
@@ -48,10 +49,11 @@ def consumir_comandos():
         msg3 = consumer_compensacion_propiedades.receive()
         
         try: 
+            consumer_compensacion_propiedades.acknowledge(msg3)
             data = json.loads(msg3.data().decode('utf-8'))
             print("Evento de Compensacion recibido:", data)
             changelog("Compensacion recibida:" + str(data))
-            consumer_compensacion_propiedades.acknowledge(msg3)
+            
             
             producer_notif_propiedad.send(msg3.data())
         
