@@ -37,7 +37,7 @@ def consumir_comandos():
                 data = json.loads(msg2.data().decode('utf-8'))
                 print("Evento recibido:", data)
                 changelog("Evento recibido:" + str(data), data['trans_id'])
-                
+                print(data['nombre'])
                 if data['nombre'] != 'Casa Repetida':
                     producer_notif_propiedad.send(msg2.data())
             except Exception as e:
