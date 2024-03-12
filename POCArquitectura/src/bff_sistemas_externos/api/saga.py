@@ -18,7 +18,7 @@ class OrderSaga:
 
     def procesar_propiedad(self, propiedad_json, token):
         propiedad_json['accion'] = 'crear'
-        propiedad_json['trans_id'] = random.randint(1, 8000)
+        propiedad_json['trans_id'] = random.randint(1, 1000)
         bytes_io = io.BytesIO()
         writer = DatumWriter(self.propiedad_schema)
         encoder = BinaryEncoder(bytes_io)
