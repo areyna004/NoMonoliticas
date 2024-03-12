@@ -38,12 +38,12 @@ def consumir_comandos():
             propiedad_dto = map_propiedad.externo_a_dto(propiedad_externo)
             sr = ServicioPropiedad()
             if propiedad_externo['accion'] == 'crear':
-                dto_final = sr.crear_propiedad(msg)
-                producer.send(dto_final.to_json().encode('utf-8'))
+                dto_final = sr.crear_propiedad(propiedad_dto)
+                producer.send(msg)
             if propiedad_externo['accion'] == 'eliminar': 
                 
-                dto_final = sr.eliminar_propiedad(msg)
-                producer2.send(dto_final.to_json().encode('utf-8'))
+                dto_final = sr.eliminar_propiedad(propiedad_dto)
+                producer2.send(msg)
             consumer.acknowledge(msg)
             
         except Exception as e:
