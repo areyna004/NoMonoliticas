@@ -36,7 +36,8 @@ def consumir_comandos():
             map_propiedad = MapeadorPropiedadDTOJson()
             propiedad_dto = map_propiedad.externo_a_dto(propiedad_externo)
             sr = ServicioPropiedad()
-            dto_final = sr.crear_propiedad(propiedad_dto)
+            if propiedad_externo['accion'] == 'crear':
+                dto_final = sr.crear_propiedad(propiedad_dto)
             consumer.acknowledge(msg)
             producer.send(dto_final.to_json().encode('utf-8'))
         except Exception as e:
