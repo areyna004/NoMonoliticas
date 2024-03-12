@@ -1,4 +1,4 @@
-import json, functools, io, time
+import json, functools, io, time, random
 from flask import redirect, render_template, request, session, url_for
 from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for, Response
 from avro.schema import Parse
@@ -18,6 +18,7 @@ class OrderSaga:
 
     def procesar_propiedad(self, propiedad_json, token):
         propiedad_json['accion'] = 'crear'
+        propiedad_json['trans_id'] = random.randint(1, 8000)
         bytes_io = io.BytesIO()
         writer = DatumWriter(self.propiedad_schema)
         encoder = BinaryEncoder(bytes_io)

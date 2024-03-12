@@ -75,7 +75,8 @@ def changelog(evento):
             CREATE TABLE IF NOT EXISTS eventos (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 evento TEXT,
-                hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                trans_id INT        
             )
         ''')
         conn.commit()
