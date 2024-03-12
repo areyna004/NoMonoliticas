@@ -26,6 +26,7 @@ def consumir_comandos():
     client = Client('pulsar://10.182.0.2:6650')
     consumer = client.subscribe('persistent://public/default/comandos-propiedades', 'subscripcion-2')
     producer = client.create_producer('persistent://public/default/eventos-propiedades')
+    producer2 = client.create_producer('persistent://public/default/compensacion-propiedades')
     while True:
         try:
             msg = consumer.receive()
@@ -38,8 +39,12 @@ def consumir_comandos():
             sr = ServicioPropiedad()
             if propiedad_externo['accion'] == 'crear':
                 dto_final = sr.crear_propiedad(propiedad_dto)
+                producer.send(dto_final.to_json().encode('utf-8'))
+            if propiedad_externo['accion'] == 'eliminar': 
+                dto_final = sr.crear_propiedad(propiedad_dto)
+                producer2.send(dto_final.to_json().encode('utf-8'))
             consumer.acknowledge(msg)
-            producer.send(dto_final.to_json().encode('utf-8'))
+            
         except Exception as e:
             print("Error al procesar el comando:", e)
             consumer.negative_acknowledge(msg)

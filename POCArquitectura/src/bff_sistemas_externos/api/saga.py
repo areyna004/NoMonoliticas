@@ -41,7 +41,15 @@ class OrderSaga:
         client.close()
 
     def compensar(self, propiedad_json, token):
-        print("Compensating Step 2 for order")
+        propiedad_json['accion'] = 'eliminar'
+        bytes_io = io.BytesIO()
+        writer = DatumWriter(self.propiedad_schema)
+        encoder = BinaryEncoder(bytes_io)
+        writer.write(propiedad_json, encoder)
+        encoded_data = bytes_io.getvalue()  
+        client = Client('pulsar://10.182.0.2:6650')
+        producer_comandos_propiedad = client.create_producer('persistent://public/default/comandos-propiedades', chunking_enabled=True) 
+        producer_comandos_propiedad.send(encoded_data)
 
     def execute(self, propiedad_json, token):
         self.propiedad_json = propiedad_json

@@ -11,7 +11,7 @@ def consumir_comandos():
     client = Client('pulsar://10.182.0.2:6650')
     consumer_comandos_propiedades = client.subscribe('persistent://public/default/comandos-propiedades', 'subscripcion-1')
     consumer_eventos_propiedades = client.subscribe('persistent://public/default/eventos-propiedades', 'subscripcion-2')
-    consumer_consultas_propiedades = client.subscribe('persistent://public/default/eventos-propiedades', 'subscripcion-3')
+    consumer_compensacion_propiedades = client.subscribe('persistent://public/default/compensacion-propiedades', 'subscripcion-3')
     
     while True:
         msg1 = consumer_comandos_propiedades.receive()
@@ -30,14 +30,28 @@ def consumir_comandos():
             consumer_comandos_propiedades.negative_acknowledge(msg1)
         
         msg2 = consumer_eventos_propiedades.receive()
+
         try: 
             data = json.loads(msg2.data().decode('utf-8'))
             print("Evento recibido:", data)
             changelog("Evento recibido:" + str(data))
             consumer_eventos_propiedades.acknowledge(msg2)
-            client = Client('pulsar://10.182.0.2:6650')
             producer_notif_propiedad = client.create_producer('persistent://public/default/eventos-notificaciones', chunking_enabled=True) 
             producer_notif_propiedad.send(msg2.data())
+        
+        except Exception as e:
+            print("Error al procesar el evento:", e)
+            consumer_comandos_propiedades.negative_acknowledge(msg2)
+
+        msg3 = consumer_compensacion_propiedades.receive()
+        
+        try: 
+            data = json.loads(msg3.data().decode('utf-8'))
+            print("Evento de Compensacion recibido:", data)
+            changelog("Compensacion recibida:" + str(data))
+            consumer_compensacion_propiedades.acknowledge(msg3)
+            producer_notif_propiedad = client.create_producer('persistent://public/default/eventos-notificaciones', chunking_enabled=True) 
+            producer_notif_propiedad.send(msg3.data())
         
         except Exception as e:
             print("Error al procesar el evento:", e)
