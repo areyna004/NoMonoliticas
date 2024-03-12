@@ -36,8 +36,9 @@ def consumir_comandos():
             print("Evento recibido:", data)
             changelog("Evento recibido:" + str(data))
             consumer_eventos_propiedades.acknowledge(msg2)
-            producer_notif_propiedad = client.create_producer('persistent://public/default/eventos-notificaciones', chunking_enabled=True) 
-            producer_notif_propiedad.send(msg2.data())
+            if data['nombre'] != 'Casa Repetida':
+                producer_notif_propiedad = client.create_producer('persistent://public/default/eventos-notificaciones', chunking_enabled=True) 
+                producer_notif_propiedad.send(msg2.data())
         
         except Exception as e:
             print("Error al procesar el evento:", e)

@@ -25,6 +25,12 @@ class ServicioPropiedad(Servicio):
         repositorio = self.fabrica_repositorio.crear_objeto(RepositorioPropiedades.__class__)
         repositorio.agregar(propiedad)
         return self.fabrica_propiedades.crear_objeto(propiedad, MapeadorPropiedad())
+    
+    def eliminar_propiedad(self, propiedad_dto: PropiedadDTO) -> PropiedadDTO:
+        propiedad: Propiedad = self.fabrica_propiedades.crear_objeto(propiedad_dto, MapeadorPropiedad())
+        repositorio = self.fabrica_repositorio.crear_objeto(RepositorioPropiedades.__class__)
+        repositorio.eliminar(propiedad)
+        return self.fabrica_propiedades.crear_objeto(propiedad, MapeadorPropiedad())
 
     def obtener_propiedad_por_id(self, id) -> PropiedadDTO:
         repositorio = self.fabrica_repositorio.crear_objeto(RepositorioPropiedades.__class__)

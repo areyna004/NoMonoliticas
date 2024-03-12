@@ -44,6 +44,9 @@ class RepositorioPropiedadesSQLite(RepositorioPropiedades):
         # TODO
         raise NotImplementedError
 
-    def eliminar(self, reserva_id: UUID):
-        # TODO
-        raise NotImplementedError
+    def eliminar(self, propiedad: Propiedad):
+        engine, SessionLocal, Base = init_db()
+        session = SessionLocal()
+        propiedad_dto = session.query(PropiedadDTO).filter_by(nombre=str(propiedad.nombre)).first()
+        session.delete(propiedad_dto)
+        session.commit()
