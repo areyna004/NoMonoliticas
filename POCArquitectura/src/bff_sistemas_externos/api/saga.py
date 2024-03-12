@@ -9,6 +9,7 @@ from bff_sistemas_externos.api.utils import revisar_token
 class OrderSaga:
     def __init__(self):
         self.propiedad_schema = Parse(open("src/bff_sistemas_externos/api/schema/v1/propiedad.avsc").read())
+        self.client = Client('pulsar://10.182.0.2:6650')
 
     def autenticar_usuario(self, propiedad_json, token):
         is_token = revisar_token(token)
@@ -22,23 +23,19 @@ class OrderSaga:
         encoder = BinaryEncoder(bytes_io)
         writer.write(propiedad_json, encoder)
         encoded_data = bytes_io.getvalue()  
-        client = Client('pulsar://10.182.0.2:6650')
-        producer_comandos_propiedad = client.create_producer('persistent://public/default/comandos-propiedades', chunking_enabled=True) 
+        producer_comandos_propiedad = self.client.create_producer('persistent://public/default/comandos-propiedades', chunking_enabled=True) 
         producer_comandos_propiedad.send(encoded_data)
-        client.close()
 
     def comprobar_evento(self, propiedad_json, token):
-        client = Client('pulsar://10.182.0.2:6650')
-        consumer = client.subscribe('persistent://public/default/eventos-notificaciones', 'notificaciones-subscription-bff')
+        consumer = self.client.subscribe('persistent://public/default/eventos-notificaciones', 'notificaciones-subscription-bff')
         start_time = time.time()
         timeout = 1
         while time.time() - start_time < timeout:
             msg = consumer.receive()
             if msg:
                 consumer.acknowledge(msg)
-                client.close()
                 return  
-        client.close()
+        
 
     def compensar(self, propiedad_json, token):
         propiedad_json['accion'] = 'eliminar'
@@ -57,9 +54,11 @@ class OrderSaga:
             self.autenticar_usuario(self.propiedad_json, token)
             self.procesar_propiedad(self.propiedad_json, token)
             self.comprobar_evento(self.propiedad_json, token)
+            self.client.close()
             return propiedad_json
         except Exception as e:
             self.compensar(self.propiedad_json, token)
+            self.client.close()
             return e
 
 
