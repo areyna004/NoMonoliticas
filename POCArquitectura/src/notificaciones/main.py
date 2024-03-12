@@ -56,9 +56,7 @@ def consumir_comandos():
                 consumer_compensacion_propiedades.negative_acknowledge(msg3)
     except Exception as ex:
         print("Error general:", ex)
-    finally:
-        # Close Pulsar client
-        client.close()
+
 
 def changelog(evento, trans_id):
     try:
