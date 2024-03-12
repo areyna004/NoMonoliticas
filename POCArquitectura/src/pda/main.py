@@ -41,6 +41,7 @@ def consumir_comandos():
                 dto_final = sr.crear_propiedad(propiedad_dto)
                 producer.send(dto_final.to_json().encode('utf-8'))
             if propiedad_externo['accion'] == 'eliminar': 
+                print('aqui *********************************')
                 dto_final = sr.eliminar_propiedad(propiedad_dto)
                 producer2.send(dto_final.to_json().encode('utf-8'))
             consumer.acknowledge(msg)
