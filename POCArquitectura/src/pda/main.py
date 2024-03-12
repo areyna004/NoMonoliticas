@@ -39,11 +39,11 @@ def consumir_comandos():
             sr = ServicioPropiedad()
             if propiedad_externo['accion'] == 'crear':
                 dto_final = sr.crear_propiedad(propiedad_dto)
-                producer.send(bytes_io)
+                producer.send(decoder)
             if propiedad_externo['accion'] == 'eliminar': 
                 
                 dto_final = sr.eliminar_propiedad(propiedad_dto)
-                producer2.send(bytes_io)
+                producer2.send(decoder)
             consumer.acknowledge(msg)
             
         except Exception as e:
