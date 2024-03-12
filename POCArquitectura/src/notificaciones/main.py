@@ -26,7 +26,7 @@ def consumir_comandos():
                 reader = DatumReader(comando_schema)
                 comando_data = reader.read(decoder)
                 print("Comando recibido:", comando_data)
-                changelog("Comando recibido:"+ str(comando_data))
+                changelog("Comando recibido:"+ str(comando_data), data['trans_id'])
             except Exception as e:
                 print("Error al procesar el comando:", e)
                 consumer_comandos_propiedades.negative_acknowledge(msg1)
@@ -36,7 +36,7 @@ def consumir_comandos():
                 consumer_eventos_propiedades.acknowledge(msg2)
                 data = json.loads(msg2.data().decode('utf-8'))
                 print("Evento recibido:", data)
-                changelog("Evento recibido:" + str(data))
+                changelog("Evento recibido:" + str(data), data['trans_id'])
                 
                 if data['nombre'] != 'Casa Repetida':
                     producer_notif_propiedad.send(msg2.data())
@@ -49,7 +49,7 @@ def consumir_comandos():
                 consumer_compensacion_propiedades.acknowledge(msg3)
                 data = json.loads(msg3.data().decode('utf-8'))
                 print("Evento de Compensacion recibido:", data)
-                changelog("Compensacion recibida:" + str(data))
+                changelog("Compensacion recibida:" + str(data), data['trans_id'])
                 producer_notif_propiedad.send(msg3.data())
             except Exception as e:
                 print("Error al procesar el evento:", e)
@@ -60,7 +60,7 @@ def consumir_comandos():
         # Close Pulsar client
         client.close()
 
-def changelog(evento):
+def changelog(evento, trans_id):
     try:
         # Connect to MySQL
         conn = mysql.connector.connect(
@@ -82,7 +82,7 @@ def changelog(evento):
         conn.commit()
 
         # Insert event into MySQL
-        cursor.execute('INSERT INTO eventos (evento) VALUES (%s)', (evento,))
+        cursor.execute('INSERT INTO eventos (evento, trans_id) VALUES (%s, %s)', (evento,trans_id))
         conn.commit()
     except Exception as e:
         print("Error en el registro de eventos:", e)
