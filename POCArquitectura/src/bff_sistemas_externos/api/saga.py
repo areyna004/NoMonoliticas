@@ -28,7 +28,7 @@ class OrderSaga:
 
     def comprobar_evento(self, propiedad_json, token):
         client = Client('pulsar://10.182.0.2:6650')
-        consumer = client.subscribe('persistent://public/default/eventos-propiedades', 'eventos-subscription-bff')
+        consumer = client.subscribe('persistent://public/default/eventos-notificaciones', 'notificaciones-subscription-bff')
         start_time = time.time()
         timeout = 1
         while time.time() - start_time < timeout:
@@ -39,11 +39,8 @@ class OrderSaga:
                 return  
         client.close()
 
-    def compensate_step2(self, propiedad_json, token):
+    def compensar(self, propiedad_json, token):
         print("Compensating Step 2 for order")
-
-    def compensate_step3(self, propiedad_json, token):
-        print("Compensating Step 3 for order")
 
     def execute(self, propiedad_json, token):
         self.propiedad_json = propiedad_json
@@ -53,8 +50,7 @@ class OrderSaga:
             self.comprobar_evento(self.propiedad_json, token)
             return propiedad_json
         except Exception as e:
-            self.compensate_step3(self.propiedad_json, token)
-            self.compensate_step2(self.propiedad_json, token)
+            self.compensar(self.propiedad_json, token)
             return e
 
 

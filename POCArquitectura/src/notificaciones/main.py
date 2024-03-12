@@ -12,6 +12,7 @@ def consumir_comandos():
     consumer_comandos_propiedades = client.subscribe('persistent://public/default/comandos-propiedades', 'subscripcion-1')
     consumer_eventos_propiedades = client.subscribe('persistent://public/default/eventos-propiedades', 'subscripcion-2')
     consumer_consultas_propiedades = client.subscribe('persistent://public/default/eventos-propiedades', 'subscripcion-3')
+    
     while True:
         msg1 = consumer_comandos_propiedades.receive()
         
@@ -34,6 +35,10 @@ def consumir_comandos():
             print("Evento recibido:", data)
             changelog("Evento recibido:" + str(data))
             consumer_eventos_propiedades.acknowledge(msg2)
+            client = Client('pulsar://10.182.0.2:6650')
+            producer_comandos_propiedad = client.create_producer('persistent://public/default/eventos-notificaciones', chunking_enabled=True) 
+            producer_comandos_propiedad.send(msg2.data())
+            client.close()
         except Exception as e:
             print("Error al procesar el evento:", e)
             consumer_comandos_propiedades.negative_acknowledge(msg2)
