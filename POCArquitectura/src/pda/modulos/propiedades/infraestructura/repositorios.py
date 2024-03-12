@@ -46,8 +46,8 @@ class RepositorioPropiedadesSQLite(RepositorioPropiedades):
 
     def eliminar(self, propiedad: Propiedad):
         engine, SessionLocal, Base = init_db()
-        print('aqui *********************************')
         session = SessionLocal()
+        print(propiedad.nombre)
         propiedad_dto = session.query(PropiedadDTO).filter_by(nombre=str(propiedad.nombre)).first()
         session.delete(propiedad_dto)
         session.commit()
