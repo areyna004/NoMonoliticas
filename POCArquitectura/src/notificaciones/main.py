@@ -83,4 +83,5 @@ def changelog(evento):
     conn.close()
 
 if __name__ == "__main__":
-    consumir_comandos()
+    while True:
+        consumir_comandos()
