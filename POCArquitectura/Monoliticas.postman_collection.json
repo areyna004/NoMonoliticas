@@ -112,7 +112,7 @@
 				"auth": {
 					"type": "bearer",
 					"bearer": {
-						"token": "4a5270165e901586ea63b5e4f77731"
+						"token": "4a5270165e901586ea63b5e4f7773"
 					}
 				},
 				"method": "POST",
@@ -233,7 +233,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"nombre\": \"Casa Blanca\",\r\n    \"descripcion\": \"Hermosa casa ubicada en la naturaleza\",\r\n    \"tamanio\": 200,\r\n    \"tipo\": \"Casa\",\r\n    \"direccion\": [\r\n        \"Calle Principal, Aldea del Bosque, Ciudad del Sol, País de las Maravillas\"\r\n    ]\r\n}egar_propiedadrar\r\n",
+					"raw": "{\r\n    \"nombre\": \"Casa Blanca\",\r\n    \"descripcion\": \"Hermosa casa ubicada en la naturaleza\",\r\n    \"tamanio\": 200,\r\n    \"tipo\": \"Casa\",\r\n    \"direccion\": [\r\n        \"Calle Principal, Aldea del Bosque, Ciudad del Sol, País de las Maravillas\"\r\n    ]\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "text"
